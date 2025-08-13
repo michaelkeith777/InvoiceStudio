@@ -10,6 +10,7 @@ export const prepareTemplateData = (
   template: Template,
   businessProfile: BusinessProfile
 ) => {
+
   // Prepare items with calculated values
   const itemsWithCalculations = invoice.items.map(item => ({
     ...item,

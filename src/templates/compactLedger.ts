@@ -109,7 +109,7 @@ export const compactLedgerTemplate: Template = {
           </td>
           <td style="padding: 8px 6px; vertical-align: top;">
             <div style="font-weight: 500; color: {{../brand.primaryColor}}; margin-bottom: 2px;">{{name}}</div>
-            {{#if description}}<div style="font-size: 10px; color: #6B7280; line-height: 1.3;">{{description}}</div>{{/if}}
+            {{#if description}}<div style="font-size: 10px; color: #000000; line-height: 1.3;">{{description}}</div>{{/if}}
             {{#if notes}}<div style="font-size: 9px; color: #9CA3AF; margin-top: 3px; font-style: italic;">{{notes}}</div>{{/if}}
           </td>
           <td style="padding: 8px 6px; text-align: center; vertical-align: top;">

@@ -151,18 +151,18 @@ export const compactLedgerTemplate: Template = {
         <div style="background: #F0FDF4; border-radius: 6px; padding: 12px; border-left: 3px solid #16A34A;">
           {{#if paymentLinks.stripeUrl}}
           <div style="margin-bottom: 6px; font-size: 10px;">
-            <strong style="color: #15803D;">Credit Card:</strong> 
+            <strong style="color: #000000;">Credit Card:</strong> 
             <a href="{{paymentLinks.stripeUrl}}" style="color: #2563EB; text-decoration: underline;">Pay with Stripe</a>
           </div>
           {{/if}}
           {{#if paymentLinks.paypalUrl}}
           <div style="margin-bottom: 6px; font-size: 10px;">
-            <strong style="color: #15803D;">PayPal:</strong> 
+            <strong style="color: #000000;">PayPal:</strong> 
             <a href="{{paymentLinks.paypalUrl}}" style="color: #2563EB; text-decoration: underline;">Pay with PayPal</a>
           </div>
           {{/if}}
           {{#if paymentLinks.instructions}}
-          <div style="margin-top: 8px; font-size: 9px; line-height: 1.3; color: #166534;">{{paymentLinks.instructions}}</div>
+          <div style="margin-top: 8px; font-size: 9px; line-height: 1.3; color: #000000;">{{paymentLinks.instructions}}</div>
           {{/if}}
         </div>
       </div>

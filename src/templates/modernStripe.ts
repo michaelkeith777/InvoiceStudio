@@ -179,28 +179,28 @@ export const modernStripeTemplate: Template = {
       <div>
         {{#if notes}}
         <div style="background: #FEF3C7; border-radius: 12px; padding: 1.5rem; border-left: 4px solid #F59E0B; margin-bottom: 1.5rem;">
-          <h3 style="font-weight: 600; margin-bottom: 12px; color: #92400E; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px;">Notes</h3>
-          <div style="font-size: 14px; line-height: 1.6; color: #78350F;">{{notes}}</div>
+          <h3 style="font-weight: 600; margin-bottom: 12px; color: #000000; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px;">Notes</h3>
+          <div style="font-size: 14px; line-height: 1.6; color: #000000;">{{notes}}</div>
         </div>
         {{/if}}
 
         {{#if paymentLinks}}
         <div style="background: linear-gradient(135deg, #F0FDF4 0%, #DCFCE7 100%); border-radius: 12px; padding: 1.5rem; border-left: 4px solid #16A34A; margin-bottom: 1.5rem;">
-          <h3 style="font-weight: 600; margin-bottom: 12px; color: #15803D; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px;">Payment Options</h3>
+          <h3 style="font-weight: 600; margin-bottom: 12px; color: #000000; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px;">Payment Options</h3>
           {{#if paymentLinks.stripeUrl}}
           <div style="margin-bottom: 8px; font-size: 14px;">
-            <strong style="color: #15803D;">Credit Card Payment:</strong> 
+            <strong style="color: #000000;">Credit Card Payment:</strong> 
             <a href="{{paymentLinks.stripeUrl}}" style="color: #2563EB; text-decoration: underline; font-weight: 500;">Pay with Stripe</a>
           </div>
           {{/if}}
           {{#if paymentLinks.paypalUrl}}
           <div style="margin-bottom: 8px; font-size: 14px;">
-            <strong style="color: #15803D;">PayPal Payment:</strong> 
+            <strong style="color: #000000;">PayPal Payment:</strong> 
             <a href="{{paymentLinks.paypalUrl}}" style="color: #2563EB; text-decoration: underline; font-weight: 500;">Pay with PayPal</a>
           </div>
           {{/if}}
           {{#if paymentLinks.instructions}}
-          <div style="margin-top: 12px; font-size: 13px; line-height: 1.6; color: #166534;">{{paymentLinks.instructions}}</div>
+          <div style="margin-top: 12px; font-size: 13px; line-height: 1.6; color: #000000;">{{paymentLinks.instructions}}</div>
           {{/if}}
         </div>
         {{/if}}

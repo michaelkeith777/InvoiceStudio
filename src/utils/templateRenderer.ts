@@ -84,6 +84,10 @@ export const prepareTemplateData = (
     payments: formattedPayments,
     discounts: formattedDiscounts,
     totals: formattedTotals,
+    workDetails: invoice.workDetails,
+    paymentLinks: invoice.paymentLinks,
+    notes: invoice.notes,
+    terms: invoice.terms,
     // Helper functions for templates
     helpers: {
       formatCurrency: (amount: number) => formatCurrency(amount, invoice.currency, invoice.locale),
@@ -113,8 +117,8 @@ export const renderTemplate = (
   } catch (error) {
     console.error('Error rendering template:', error);
     console.error('Template HTML length:', template.html.length);
-    console.error('Error position:', error.message);
-    return `<div class="error">Error rendering template: ${error.message}</div>`;
+    console.error('Error details:', (error as Error).message);
+    return `<div class="error">Error rendering template: ${(error as Error).message}</div>`;
   }
 };
 

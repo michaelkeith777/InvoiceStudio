@@ -81,21 +81,21 @@ export const cleanProfessionalTemplate: Template = {
       {{#each items}}
       <tr style="border-bottom: 1px solid #E5E7EB;">
         <td style="padding: 12px; vertical-align: top;">
-          <div style="font-weight: 500;">{{name}}</div>
-          {{#sku}}<div style="font-size: 11px; color: #9CA3AF; margin-top: 2px;">SKU: {{sku}}</div>{{/sku}}
+          <div style="font-weight: 500; color: #000000;">{{name}}</div>
+          {{#sku}}<div style="font-size: 11px; color: #4B5563; margin-top: 2px;">SKU: {{sku}}</div>{{/sku}}
         </td>
         <td style="padding: 12px; vertical-align: top;">
-          <div style="font-size: 13px; color: #6B7280;">{{description}}</div>
-          {{#if notes}}<div style="font-size: 11px; color: #9CA3AF; margin-top: 4px; font-style: italic;">{{notes}}</div>{{/if}}
+          <div style="font-size: 13px; color: #000000;">{{description}}</div>
+          {{#if notes}}<div style="font-size: 11px; color: #4B5563; margin-top: 4px; font-style: italic;">{{notes}}</div>{{/if}}
         </td>
-        <td style="padding: 12px; text-align: right; vertical-align: top;">{{formattedQuantity}}</td>
-        <td style="padding: 12px; text-align: right; vertical-align: top;">{{formattedUnitPrice}}</td>
+        <td style="padding: 12px; text-align: right; vertical-align: top; color: #000000;">{{formattedQuantity}}</td>
+        <td style="padding: 12px; text-align: right; vertical-align: top; color: #000000;">{{formattedUnitPrice}}</td>
         {{#if discount}}
         <td style="padding: 12px; text-align: right; vertical-align: top; color: #059669;">{{discountDisplay}}</td>
         {{else}}
         {{#if ../items.0.discount}}<td style="padding: 12px; text-align: right; vertical-align: top;">-</td>{{/if}}
         {{/if}}
-        <td style="padding: 12px; text-align: right; vertical-align: top; font-weight: 500;">{{calculatedLineTotal}}</td>
+        <td style="padding: 12px; text-align: right; vertical-align: top; font-weight: 500; color: #000000;">{{calculatedLineTotal}}</td>
       </tr>
       {{/each}}
     </tbody>
@@ -103,9 +103,9 @@ export const cleanProfessionalTemplate: Template = {
 
   {{#if workDetails}}
   <section style="margin-bottom: 2rem;">
-    <h3 style="font-weight: 600; margin-bottom: 12px; color: #374151; font-size: 16px;">Details of Work</h3>
+    <h3 style="font-weight: 600; margin-bottom: 12px; color: #000000; font-size: 16px;">Details of Work</h3>
     <div style="background: #F9FAFB; padding: 1.5rem; border-radius: 8px; border-left: 4px solid {{brand.primaryColor}};">
-      <div style="font-size: 14px; line-height: 1.6; color: #4B5563;" class="work-details-content">{{{workDetails}}}</div>
+      <div style="font-size: 14px; line-height: 1.6; color: #000000;" class="work-details-content">{{{workDetails}}}</div>
     </div>
   </section>
   {{/if}}
@@ -114,15 +114,15 @@ export const cleanProfessionalTemplate: Template = {
     <div>
       {{#if notes}}
       <div style="margin-bottom: 1.5rem;">
-        <h3 style="font-weight: 600; margin-bottom: 8px; color: #374151;">Notes</h3>
-        <div style="font-size: 14px; line-height: 1.5; color: #6B7280;">{{notes}}</div>
+        <h3 style="font-weight: 600; margin-bottom: 8px; color: #000000;">Notes</h3>
+        <div style="font-size: 14px; line-height: 1.5; color: #000000;">{{notes}}</div>
       </div>
       {{/if}}
       
       {{#if terms}}
       <div>
-        <h3 style="font-weight: 600; margin-bottom: 8px; color: #374151;">Terms & Conditions</h3>
-        <div style="font-size: 13px; line-height: 1.4; color: #6B7280;">{{terms}}</div>
+        <h3 style="font-weight: 600; margin-bottom: 8px; color: #000000;">Terms & Conditions</h3>
+        <div style="font-size: 13px; line-height: 1.4; color: #000000;">{{terms}}</div>
       </div>
       {{/if}}
 
@@ -162,7 +162,7 @@ export const cleanProfessionalTemplate: Template = {
 
     <div>
       <div style="background: #F9FAFB; padding: 1.5rem; border-radius: 8px;">
-        <div style="display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 14px;">
+        <div style="display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 14px; color: #000000;">
           <span>Subtotal</span><span>{{totals.subtotal}}</span>
         </div>
         
@@ -179,18 +179,18 @@ export const cleanProfessionalTemplate: Template = {
         {{/if}}
         
         {{#if totals.fees}}
-        <div style="display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 14px;">
+        <div style="display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 14px; color: #000000;">
           <span>Fees</span><span>{{totals.fees}}</span>
         </div>
         {{/if}}
         
         {{#if totals.tax}}
-        <div style="display: flex; justify-content: space-between; margin-bottom: 12px; font-size: 14px;">
+        <div style="display: flex; justify-content: space-between; margin-bottom: 12px; font-size: 14px; color: #000000;">
           <span>Tax</span><span>{{totals.tax}}</span>
         </div>
         {{/if}}
         
-        <div style="display: flex; justify-content: space-between; padding-top: 12px; border-top: 2px solid #E5E7EB; font-size: 18px; font-weight: 700;">
+        <div style="display: flex; justify-content: space-between; padding-top: 12px; border-top: 2px solid #E5E7EB; font-size: 18px; font-weight: 700; color: #000000;">
           <span>Total</span><span style="color: {{brand.primaryColor}};">{{totals.grandTotal}}</span>
         </div>
         

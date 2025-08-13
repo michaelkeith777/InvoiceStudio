@@ -173,6 +173,16 @@ export const modernStripeTemplate: Template = {
       </div>
     </section>
     {{/if}}
+    
+    <!-- TESTING: Always show work details debug -->
+    <section class="mb-8">
+      <div style="background: #FEF3C7; border-radius: 12px; padding: 1rem; border: 1px solid #F59E0B;">
+        <h3 style="font-weight: 600; margin-bottom: 8px; color: #92400E; font-size: 12px;">Work Details Debug</h3>
+        <div style="font-size: 11px; color: #92400E;">
+          Data: "{{workDetails}}" | Has Data: {{#if workDetails}}YES{{else}}NO{{/if}}
+        </div>
+      </div>
+    </section>
 
     <!-- Summary Section -->
     <section class="grid grid-cols-2 gap-8">

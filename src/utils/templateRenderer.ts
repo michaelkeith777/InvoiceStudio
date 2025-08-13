@@ -19,9 +19,10 @@ export const prepareTemplateData = (
   );
   
   console.log('Template conditions:', {
-    workDetails: invoice.workDetails,
+    workDetailsRaw: JSON.stringify(invoice.workDetails),
+    workDetailsLength: invoice.workDetails?.length || 0,
     hasWorkDetails,
-    paymentLinks: invoice.paymentLinks,
+    paymentLinksRaw: JSON.stringify(invoice.paymentLinks),
     hasPaymentLinks
   });
 

@@ -1039,9 +1039,18 @@ Technical specifications:
                   inputMode="decimal"
                   value={typeof payment.amount === 'string' && payment.amount === '' ? '' : payment.amount.toString()}
                   onChange={(e) => {
-                    const value = e.target.value.replace(/[^0-9.]/g, '');
-                    if (value === '' || /^\d*\.?\d*$/.test(value)) {
-                      updatePayment(payment.id, 'amount', value === '' ? '' : parseFloat(value) || '');
+                    const value = e.target.value;
+                    // Allow digits, one decimal point, and up to 2 decimal places
+                    if (value === '' || /^\d*\.?\d{0,2}$/.test(value)) {
+                      // Store as string if empty, otherwise as number
+                      updatePayment(payment.id, 'amount', value === '' ? '' : value);
+                    }
+                  }}
+                  onBlur={(e) => {
+                    // Convert to number on blur if it's a valid decimal
+                    const value = e.target.value;
+                    if (value !== '' && !isNaN(parseFloat(value))) {
+                      updatePayment(payment.id, 'amount', parseFloat(value));
                     }
                   }}
                   className="form-input text-sm w-32"

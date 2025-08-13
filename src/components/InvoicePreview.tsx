@@ -15,6 +15,13 @@ const InvoicePreview: React.FC = () => {
       try {
         const data = prepareTemplateData(currentInvoice, template, businessProfile);
         const rendered = renderTemplate(template, data);
+        
+        // Debug: Log the rendered HTML to see if our debug sections are there
+        console.log('Rendered HTML length:', rendered.length);
+        console.log('HTML contains ABSOLUTE TEST:', rendered.includes('ABSOLUTE TEST'));
+        console.log('HTML contains workDetails:', rendered.includes('vcbvfbxvcxbvcbvcv'));
+        console.log('First 1000 chars of rendered HTML:', rendered.substring(0, 1000));
+        
         setRenderedHTML(rendered);
       } catch (error) {
         console.error('Error rendering template:', error);

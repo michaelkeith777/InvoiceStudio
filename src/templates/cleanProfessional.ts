@@ -21,6 +21,11 @@ export const cleanProfessionalTemplate: Template = {
     terms: 'Payment due within 14 days.'
   },
   html: `
+<!-- IMMEDIATE DEBUG TEST -->
+<div style="background: lime; color: red; padding: 30px; border: 10px solid blue; font-size: 30px; margin: 20px 0;">
+  🚨 TEMPLATE DEBUG: workDetails = "{{workDetails}}" | Invoice = {{invoice.invoiceNumber}}
+</div>
+
 <div class="invoice p-8">
   <header class="flex items-start justify-between mb-8">
     <div class="flex items-center gap-4">

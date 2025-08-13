@@ -50,7 +50,7 @@ interface InvoiceStore {
   clearError: () => void;
 }
 
-const createEmptyInvoice = (templateId: string = 'simple-test'): Invoice => ({
+const createEmptyInvoice = (templateId: string = 'clean-professional-fixed'): Invoice => ({
   version: '1.0',
   id: uuidv4(),
   templateId,
@@ -105,7 +105,7 @@ const defaultSettings: AppSettings = {
   invoiceNumberPattern: 'INV-{YYYY}-{#####}',
   defaultTaxes: [],
   defaultFees: [],
-  defaultTemplateId: 'clean-professional',
+  defaultTemplateId: 'clean-professional-fixed',
   defaultBusinessProfileId: 'default',
   autosaveInterval: 10000
 };

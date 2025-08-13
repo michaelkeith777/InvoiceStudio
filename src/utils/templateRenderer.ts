@@ -121,6 +121,15 @@ export const renderTemplate = (
   data: any
 ): string => {
   try {
+    // Debug: Log the exact data being passed to Mustache
+    console.log('Mustache render data:', {
+      workDetails: data.workDetails,
+      workDetailsType: typeof data.workDetails,
+      workDetailsLength: data.workDetails?.length,
+      paymentLinks: data.paymentLinks,
+      dataKeys: Object.keys(data)
+    });
+    
     // Parse template to validate syntax before rendering
     Mustache.parse(template.html);
     

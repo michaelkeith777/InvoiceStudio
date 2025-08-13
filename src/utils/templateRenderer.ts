@@ -101,6 +101,9 @@ export const renderTemplate = (
   data: any
 ): string => {
   try {
+    // Parse template to validate syntax before rendering
+    Mustache.parse(template.html);
+    
     // Disable HTML escaping for currency symbols and HTML content
     const rendered = Mustache.render(template.html, data, {}, {
       escape: (text) => text // Disable escaping
@@ -109,7 +112,9 @@ export const renderTemplate = (
     return rendered;
   } catch (error) {
     console.error('Error rendering template:', error);
-    return '<div class="error">Error rendering template</div>';
+    console.error('Template HTML length:', template.html.length);
+    console.error('Error position:', error.message);
+    return `<div class="error">Error rendering template: ${error.message}</div>`;
   }
 };
 

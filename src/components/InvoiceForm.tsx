@@ -750,14 +750,31 @@ Technical specifications:
             <div className="flex items-center justify-between mt-4">
               <button
                 onClick={() => {
-                  // Force save and update
-                  console.log('Manually saving work details:', currentInvoice.workDetails);
-                  updateField('workDetails', currentInvoice.workDetails || '');
-                  updateField('updatedAt', new Date().toISOString());
+                  // Add some test content to force the data to show up
+                  const testContent = currentInvoice.workDetails || '<p>Test work details content</p>';
+                  console.log('Forcing work details to:', testContent);
+                  updateInvoice({ 
+                    workDetails: testContent,
+                    updatedAt: new Date().toISOString() 
+                  });
                 }}
                 className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
               >
-                Save Work Details
+                Add Test Work Details
+              </button>
+              
+              <button
+                onClick={() => {
+                  // Clear work details
+                  console.log('Clearing work details');
+                  updateInvoice({ 
+                    workDetails: '',
+                    updatedAt: new Date().toISOString() 
+                  });
+                }}
+                className="bg-red-600 text-white px-3 py-2 rounded hover:bg-red-700"
+              >
+                Clear
               </button>
               
               {currentInvoice.workDetails && currentInvoice.workDetails.trim() && (
@@ -1095,14 +1112,38 @@ Technical specifications:
           <div className="flex items-center justify-between mt-4">
             <button
               onClick={() => {
-                // Force save and update
-                console.log('Manually saving payment links:', currentInvoice.paymentLinks);
-                updateField('paymentLinks', currentInvoice.paymentLinks);
-                updateField('updatedAt', new Date().toISOString());
+                // Add test payment links
+                console.log('Adding test payment links');
+                updateInvoice({ 
+                  paymentLinks: {
+                    stripeUrl: 'https://buy.stripe.com/test-link',
+                    paypalUrl: 'https://paypal.me/testuser',
+                    instructions: 'Payment due within 30 days. Wire transfer details available upon request.'
+                  },
+                  updatedAt: new Date().toISOString() 
+                });
               }}
               className="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700"
             >
-              Save Payment Links
+              Add Test Payment Links
+            </button>
+            
+            <button
+              onClick={() => {
+                // Clear payment links
+                console.log('Clearing payment links');
+                updateInvoice({ 
+                  paymentLinks: {
+                    stripeUrl: '',
+                    paypalUrl: '',
+                    instructions: ''
+                  },
+                  updatedAt: new Date().toISOString() 
+                });
+              }}
+              className="bg-red-600 text-white px-3 py-2 rounded hover:bg-red-700"
+            >
+              Clear
             </button>
             
             {(currentInvoice.paymentLinks.stripeUrl || currentInvoice.paymentLinks.paypalUrl || currentInvoice.paymentLinks.instructions) && (

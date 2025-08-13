@@ -33,16 +33,16 @@ export const modernStripeTemplate: Template = {
         </div>
         {{else}}
         <div style="width: 48px; height: 48px; background: rgba(255,255,255,0.2); border-radius: 8px; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(10px);">
-          <div style="font-size: 18px; font-weight: 700; color: white;">{{business.name.0}}</div>
+          <div style="font-size: 18px; font-weight: 700; color: #000000;">{{business.name.0}}</div>
         </div>
         {{/if}}
         <div>
-          <h1 style="font-family: {{brand.fontFamilyHeader}}; font-size: 20px; color: white; margin: 0; font-weight: 700; text-shadow: 0 1px 2px rgba(0,0,0,0.1);">{{business.name}}</h1>
+          <h1 style="font-family: {{brand.fontFamilyHeader}}; font-size: 20px; color: #000000; margin: 0; font-weight: 700; text-shadow: 0 1px 2px rgba(0,0,0,0.1);">{{business.name}}</h1>
           <div style="font-size: 12px; color: rgba(255,255,255,0.9); margin-top: 2px;">Professional Invoice</div>
         </div>
       </div>
       <div class="text-right">
-        <div style="font-size: 32px; color: white; font-weight: 700; text-shadow: 0 2px 4px rgba(0,0,0,0.2);">INVOICE</div>
+        <div style="font-size: 32px; color: #000000; font-weight: 700; text-shadow: 0 2px 4px rgba(0,0,0,0.2);">INVOICE</div>
         <div style="font-size: 14px; color: rgba(255,255,255,0.9); font-weight: 500;"># {{invoice.invoiceNumber}}</div>
       </div>
     </div>
@@ -124,14 +124,14 @@ export const modernStripeTemplate: Template = {
         <table style="width: 100%; border-collapse: collapse;">
           <thead>
             <tr style="background: linear-gradient(135deg, {{brand.accentColor}} 0%, #8B5CF6 100%);">
-              <th style="text-align: left; padding: 16px; font-weight: 600; color: white; text-transform: uppercase; letter-spacing: 0.5px; font-size: 12px;">Item</th>
-              <th style="text-align: left; padding: 16px; font-weight: 600; color: white; text-transform: uppercase; letter-spacing: 0.5px; font-size: 12px;">Description</th>
-              <th style="text-align: center; padding: 16px; font-weight: 600; color: white; text-transform: uppercase; letter-spacing: 0.5px; font-size: 12px;">Qty</th>
-              <th style="text-align: right; padding: 16px; font-weight: 600; color: white; text-transform: uppercase; letter-spacing: 0.5px; font-size: 12px;">Rate</th>
+              <th style="text-align: left; padding: 16px; font-weight: 600; color: #000000; text-transform: uppercase; letter-spacing: 0.5px; font-size: 12px;">Item</th>
+              <th style="text-align: left; padding: 16px; font-weight: 600; color: #000000; text-transform: uppercase; letter-spacing: 0.5px; font-size: 12px;">Description</th>
+              <th style="text-align: center; padding: 16px; font-weight: 600; color: #000000; text-transform: uppercase; letter-spacing: 0.5px; font-size: 12px;">Qty</th>
+              <th style="text-align: right; padding: 16px; font-weight: 600; color: #000000; text-transform: uppercase; letter-spacing: 0.5px; font-size: 12px;">Rate</th>
               {{#if items.0.discount}}
-              <th style="text-align: right; padding: 16px; font-weight: 600; color: white; text-transform: uppercase; letter-spacing: 0.5px; font-size: 12px;">Discount</th>
+              <th style="text-align: right; padding: 16px; font-weight: 600; color: #000000; text-transform: uppercase; letter-spacing: 0.5px; font-size: 12px;">Discount</th>
               {{/if}}
-              <th style="text-align: right; padding: 16px; font-weight: 600; color: white; text-transform: uppercase; letter-spacing: 0.5px; font-size: 12px;">Amount</th>
+              <th style="text-align: right; padding: 16px; font-weight: 600; color: #000000; text-transform: uppercase; letter-spacing: 0.5px; font-size: 12px;">Amount</th>
             </tr>
           </thead>
           <tbody>
@@ -169,7 +169,7 @@ export const modernStripeTemplate: Template = {
     <section class="mb-8">
       <div style="background: linear-gradient(135deg, #F0F9FF 0%, #E0F2FE 100%); border-radius: 12px; padding: 1.5rem; border-left: 4px solid {{brand.primaryColor}};">
         <h3 style="font-weight: 600; margin-bottom: 12px; color: {{brand.primaryColor}}; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px;">Details of Work</h3>
-        <div style="font-size: 14px; line-height: 1.6; color: #475569;" class="work-details-content">{{{workDetails}}}</div>
+        <div style="font-size: 14px; line-height: 1.6; color: #000000;" class="work-details-content">{{{workDetails}}}</div>
       </div>
     </section>
     {{/if}}

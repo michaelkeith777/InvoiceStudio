@@ -41,7 +41,7 @@ export const compactLedgerTemplate: Template = {
     </div>
     
     <div style="text-align: right; min-width: 200px;">
-      <div style="background: {{brand.primaryColor}}; color: white; padding: 8px 16px; border-radius: 4px; margin-bottom: 8px;">
+      <div style="background: {{brand.primaryColor}}; color: #000000; padding: 8px 16px; border-radius: 4px; margin-bottom: 8px;">
         <div style="font-size: 16px; font-weight: 700; margin-bottom: 2px;">INVOICE</div>
         <div style="font-size: 12px; opacity: 0.9;"># {{invoice.invoiceNumber}}</div>
       </div>
@@ -185,7 +185,7 @@ export const compactLedgerTemplate: Template = {
 
     <!-- Compact Totals -->
     <div>
-      <div style="background: {{brand.primaryColor}}; color: white; border-radius: 8px; padding: 16px; font-size: 11px;">
+      <div style="background: {{brand.primaryColor}}; color: #000000; border-radius: 8px; padding: 16px; font-size: 11px;">
         <h3 style="font-weight: 600; margin-bottom: 12px; color: rgba(255,255,255,0.9); font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px;">Summary</h3>
         
         <div style="space-y: 6px;">

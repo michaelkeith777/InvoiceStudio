@@ -21,11 +21,6 @@ export const simpleTemplate: Template = {
     terms: 'Payment due within 30 days.'
   },
   html: `
-<!-- LIME GREEN DEBUG TEST -->
-<div style="background: lime; color: red; padding: 30px; border: 10px solid blue; font-size: 30px; margin: 20px 0;">
-  🚨 SIMPLE TEMPLATE DEBUG: workDetails = "{{workDetails}}" | Invoice = {{invoice.invoiceNumber}}
-</div>
-
 <div style="padding: 20px; font-family: 'Inter', sans-serif;">
   <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 30px;">
     <div style="flex: 1;">
@@ -88,6 +83,20 @@ export const simpleTemplate: Template = {
     </table>
   </div>
   
+  <!-- Work Details Section - moved here after items table -->
+  {{#workDetails}}
+  <div style="margin: 30px 0; padding: 20px; background: #F0F9FF; border-radius: 8px; border-left: 4px solid #3B82F6;">
+    <div style="font-weight: 600; margin-bottom: 12px; color: #1E40AF; display: flex; align-items: center;">
+      <svg style="width: 20px; height: 20px; margin-right: 8px;" fill="currentColor" viewBox="0 0 20 20">
+        <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"/>
+        <path fill-rule="evenodd" d="M4 5a2 2 0 012-2v1a1 1 0 001 1h6a1 1 0 001-1V3a2 2 0 012 2v6.5a1.5 1.5 0 01-1.5 1.5h-9A1.5 1.5 0 014 11.5V5z" clip-rule="evenodd"/>
+      </svg>
+      Work Details
+    </div>
+    <div style="color: #374151; line-height: 1.6; white-space: pre-line; font-size: 14px;">{{workDetails}}</div>
+  </div>
+  {{/workDetails}}
+  
   <div style="display: flex; justify-content: flex-end;">
     <div style="min-width: 300px;">
       <div style="border-top: 2px solid {{business.color}}; padding-top: 20px;">
@@ -109,20 +118,6 @@ export const simpleTemplate: Template = {
     </div>
   </div>
   
-  <!-- Work Details Section -->
-  {{#workDetails}}
-  <div style="margin-top: 40px; padding: 20px; background: #F0F9FF; border-radius: 8px; border-left: 4px solid #3B82F6;">
-    <div style="font-weight: 600; margin-bottom: 12px; color: #1E40AF; display: flex; align-items: center;">
-      <svg style="width: 20px; height: 20px; margin-right: 8px;" fill="currentColor" viewBox="0 0 20 20">
-        <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"/>
-        <path fill-rule="evenodd" d="M4 5a2 2 0 012-2v1a1 1 0 001 1h6a1 1 0 001-1V3a2 2 0 012 2v6.5a1.5 1.5 0 01-1.5 1.5h-9A1.5 1.5 0 014 11.5V5z" clip-rule="evenodd"/>
-      </svg>
-      Work Details
-    </div>
-    <div style="color: #374151; line-height: 1.6; white-space: pre-line; font-size: 14px;">{{workDetails}}</div>
-  </div>
-  {{/workDetails}}
-
   <!-- Payment Links Section -->
   {{#paymentLinks}}
   {{#paymentLinks.stripeUrl}}

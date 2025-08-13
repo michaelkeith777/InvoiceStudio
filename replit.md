@@ -16,13 +16,14 @@ Preferred communication style: Simple, everyday language.
 - **Styling**: Tailwind CSS with custom component classes and utility-first approach
 - **UI Layout**: Three-pane desktop layout with action bar, input form, and live preview
 - **Real-time Updates**: Direct state updates trigger immediate re-rendering of preview (<50ms target)
+- **Micro-animations**: Comprehensive animation framework with smooth transitions, hover effects, and delightful user interactions
 
 ### Web Application Framework
 - **Platform**: Modern web browsers with responsive design
 - **Architecture**: Client-side React app with browser-based storage and APIs
 - **Security**: CSP-compliant with secure client-side operations
 - **Development**: Webpack-based build system with hot reload support
-- **Deployment**: Static site deployment with CDN support
+- **Deployment**: Netlify-optimized static site deployment with client-side routing support
 
 ### Data Storage & Persistence
 - **Storage Method**: Browser localStorage and IndexedDB for client-side persistence
@@ -77,4 +78,19 @@ Preferred communication style: Simple, everyday language.
 - **Google Fonts**: Inter and Roboto Slab fonts loaded via CDN
 - **Embedded Fonts**: Fallback system fonts for offline operation
 
-Note: The application is designed to be completely offline-first with no external API dependencies during runtime. All external resources are either bundled or have local fallbacks.
+## Deployment Architecture
+
+### Netlify Configuration
+- **Build Command**: `npx webpack --mode production`
+- **Publish Directory**: `build/`
+- **Redirects**: Configured for SPA client-side routing via _redirects and netlify.toml
+- **Static Assets**: Optimized with content hashing and proper cache headers
+- **HTML Template**: Located in main folder (index.html) not subfolder for Netlify compatibility
+
+### Production Build Features
+- **Code Splitting**: Separate vendor and main bundles for optimal caching
+- **Asset Optimization**: Minified CSS/JS with source maps for debugging
+- **Client-side Routing**: Full SPA functionality with proper URL handling
+- **Performance**: Lighthouse-optimized bundle sizes and loading strategies
+
+Note: The application is designed to be completely offline-first with no external API dependencies during runtime. All external resources are either bundled or have local fallbacks, making it perfect for static hosting platforms like Netlify.

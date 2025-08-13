@@ -1,5 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const fs = require('fs');
 
 module.exports = (env, argv) => {
   const isProduction = argv.mode === 'production';
@@ -12,7 +13,7 @@ module.exports = (env, argv) => {
       path: path.resolve(__dirname, 'build'),
       filename: isProduction ? 'static/js/[name].[contenthash:8].js' : 'static/js/[name].bundle.js',
       chunkFilename: isProduction ? 'static/js/[name].[contenthash:8].chunk.js' : 'static/js/[name].chunk.js',
-      publicPath: isProduction ? './' : '/',
+      publicPath: '/',
       clean: true,
     },
     resolve: {
@@ -87,6 +88,16 @@ module.exports = (env, argv) => {
           minifyURLs: true,
         } : false,
       }),
+      // Copy _redirects file for Netlify
+      {
+        apply: (compiler) => {
+          compiler.hooks.afterEmit.tap('CopyRedirects', (compilation) => {
+            if (isProduction && fs.existsSync('./_redirects')) {
+              fs.copyFileSync('./_redirects', './build/_redirects');
+            }
+          });
+        },
+      },
     ],
     devServer: {
       static: {

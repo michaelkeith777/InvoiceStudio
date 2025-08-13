@@ -100,8 +100,8 @@ export const prepareTemplateData = (
     payments: formattedPayments,
     discounts: formattedDiscounts,
     totals: formattedTotals,
-    workDetails: invoice.workDetails,
-    paymentLinks: invoice.paymentLinks,
+    workDetails: hasWorkDetails ? invoice.workDetails : false,
+    paymentLinks: hasPaymentLinks ? invoice.paymentLinks : false,
     notes: invoice.notes,
     terms: invoice.terms,
     // Helper functions for templates

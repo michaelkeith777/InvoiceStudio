@@ -2,7 +2,7 @@ import { Template } from '../types';
 
 export const simpleTemplate: Template = {
   id: 'simple-test',
-  name: 'Professional Invoice',
+  name: 'Simple Test',
   brand: {
     primaryColor: '#1F2937',
     accentColor: '#3B82F6',

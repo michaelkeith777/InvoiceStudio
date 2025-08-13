@@ -21,6 +21,11 @@ export const simpleTemplate: Template = {
     terms: 'Payment due within 30 days.'
   },
   html: `
+<!-- LIME GREEN DEBUG TEST -->
+<div style="background: lime; color: red; padding: 30px; border: 10px solid blue; font-size: 30px; margin: 20px 0;">
+  🚨 SIMPLE TEMPLATE DEBUG: workDetails = "{{workDetails}}" | Invoice = {{invoice.invoiceNumber}}
+</div>
+
 <div style="padding: 20px; font-family: 'Inter', sans-serif;">
   <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 30px;">
     <div style="flex: 1;">

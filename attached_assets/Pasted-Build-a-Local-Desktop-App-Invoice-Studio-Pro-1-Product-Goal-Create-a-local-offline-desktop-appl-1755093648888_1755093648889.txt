@@ -1,0 +1,462 @@
+Build a Local Desktop App: “Invoice Studio Pro”
+1) Product Goal
+Create a local, offline desktop application (Windows + macOS) for generating professional invoices that update in real time as the user types. The app shows inputs on the left, a live invoice document in the center, and utilities/actions on the right/top bar. It must support custom fees + taxes, automatic calculations, reusable templates, and one-click PDF export—all without any cloud dependency.
+
+2) Platform & Tech Requirements
+Packaging: Electron (or Tauri) desktop app; offline-first, no external APIs.
+
+Frontend: React + Typescript (preferred), Tailwind CSS for styling.
+
+State: React state + Zustand (or Redux) for global state; persist to local filesystem using app data directory.
+
+Storage: JSON files for templates & invoices; user-accessible folder structure.
+
+PDF: HTML-to-PDF using headless Chromium (Electron) or print-to-PDF API with embedded fonts.
+
+Fonts: Bundle safe, professional fonts (e.g., Inter, Roboto Slab) + allow custom font upload.
+
+Performance: Instant updates in preview (<50ms on field change) for typical invoices (≤200 line items).
+
+3) Core User Flows (must implement)
+Create Invoice
+
+Enter header info, bill-to/ship-to, items, taxes, fees, payments.
+
+Real-time totals auto-update.
+
+Save as draft, export PDF.
+
+Use Template
+
+Pick a template (layout + branding + default fields).
+
+Templates can define: logo, color palette, header layout, footer, legal text, default tax rules, preset fee rules.
+
+User can “Save as New Template” from any invoice.
+
+Manage Taxes & Fees
+
+Define multiple taxes (e.g., state + local) with stacking rules.
+
+Define fixed or percentage fees (e.g., “Processing 3.5%,” “Delivery $15”).
+
+Toggle per invoice; calculator updates live.
+
+Export & Share
+
+Export single invoice as PDF.
+
+Batch export multiple invoices from a list view.
+
+Option: Export as editable JSON or HTML (for archiving).
+
+Open & Edit Existing
+
+Browse local library.
+
+Duplicate, revise, re-export.
+
+4) UI Layout (three-pane)
+Left Panel: Input Form
+
+Collapsible sections:
+
+Business Profile (pulldown): Business name, address, phone/email, logo upload, brand color.
+
+Client: Name, company, email, phone, billing address, shipping address.
+
+Invoice Meta: Invoice # (auto increment with override), PO #, issue date, due date, payment terms (Net 15/30/etc.), currency, language/locale.
+
+Line Items (dynamic table):
+
+Fields: Item name, description (multiline), quantity, unit price, discount (%, fixed), tax category (dropdown), SKU, notes.
+
+Buttons: + Add Item, Duplicate, Delete, Reorder (drag).
+
+Fees & Taxes
+
+Taxes: multiple, name, rate %, inclusive/exclusive, apply-after-discount toggle, priority order.
+
+Fees: name, fixed or %, apply to subtotal or grand total.
+
+Payments/Deposits: Add partial payment lines (date, method, amount).
+
+Footer & Terms: Notes to client, terms & conditions, signature line toggle.
+
+Validation hints inline (red text), autosave indicator.
+
+Center: Live Invoice Preview
+
+Pixel-accurate rendering of selected template.
+
+Updates on each keystroke.
+
+Zoom controls (fit, 100%, 125%, 150%).
+
+Page indicators (1/1, 1/2…).
+
+Show/hide guides & margins.
+
+Right/Top Bar: Actions
+
+Buttons: Save, Save as Template, Export PDF, Duplicate, New, Open, Settings.
+
+Template picker (thumbnail grid).
+
+Calc summary widget (read-only): Subtotal, Discounts, Tax breakdown, Fees, Total, Paid, Balance Due.
+
+5) Data Model (JSON Schemas)
+Invoice JSON (invoice.v1.json)
+
+json
+Copy
+Edit
+{
+  "version": "1.0",
+  "id": "uuid",
+  "templateId": "uuid-or-name",
+  "businessProfileId": "default-or-id",
+  "invoiceNumber": "INV-00123",
+  "poNumber": "PO-7788",
+  "issueDate": "2025-08-13",
+  "dueDate": "2025-08-27",
+  "paymentTerms": "NET_14",
+  "currency": "USD",
+  "locale": "en-US",
+  "client": {
+    "name": "Acme Inc.",
+    "contact": "Jane Doe",
+    "email": "billing@acme.com",
+    "phone": "555-555-5555",
+    "billingAddress": "123 Main St, City, ST 00000",
+    "shippingAddress": "123 Main St, City, ST 00000"
+  },
+  "items": [
+    {
+      "sku": "SERV-001",
+      "name": "Design Service",
+      "description": "Homepage + 3 inner pages",
+      "quantity": 1,
+      "unitPrice": 1200,
+      "discount": { "type": "percent", "value": 10 },
+      "taxCategory": "standard",
+      "notes": ""
+    }
+  ],
+  "discounts": [
+    { "label": "Promo", "type": "fixed", "value": 50 }
+  ],
+  "fees": [
+    { "label": "Processing", "type": "percent", "value": 3.5, "applyBase": "subtotal_after_item_discounts" }
+  ],
+  "taxes": [
+    { "label": "State Tax", "rate": 7.5, "category": "standard", "priority": 1, "applyAfterDiscounts": true },
+    { "label": "Local Tax", "rate": 1.5, "category": "standard", "priority": 2, "applyAfterDiscounts": true }
+  ],
+  "payments": [
+    { "date": "2025-08-10", "method": "Card", "amount": 300 }
+  ],
+  "notes": "Thank you for your business!",
+  "terms": "Payment due within 14 days.",
+  "totals": {
+    "subtotal": 0,
+    "itemDiscounts": 0,
+    "invoiceDiscounts": 0,
+    "fees": 0,
+    "tax": 0,
+    "grandTotal": 0,
+    "paid": 0,
+    "balanceDue": 0
+  },
+  "createdAt": "ISO",
+  "updatedAt": "ISO"
+}
+Template JSON (template.v1.json)
+
+json
+Copy
+Edit
+{
+  "id": "uuid-or-name",
+  "name": "Clean Professional",
+  "brand": {
+    "primaryColor": "#0F172A",
+    "accentColor": "#2563EB",
+    "fontFamilyHeader": "Inter",
+    "fontFamilyBody": "Inter",
+    "logoPath": "path/to/logo.png"
+  },
+  "layout": {
+    "headerStyle": "left-logo-right-details",
+    "footerText": "Thank you! | www.example.com",
+    "showSignature": true,
+    "margins": { "top": 48, "right": 48, "bottom": 64, "left": 48 }
+  },
+  "defaults": {
+    "taxRules": ["standard"],
+    "terms": "Payment due upon receipt."
+  },
+  "html": "<!-- HTML template with {{mustache}} bindings -->",
+  "css": "/* CSS for print + screen */"
+}
+Business Profile JSON (profile.v1.json)
+
+json
+Copy
+Edit
+{
+  "id": "default",
+  "name": "Your Company LLC",
+  "address": "100 Main St, City, ST 00000",
+  "email": "billing@yourco.com",
+  "phone": "555-555-5555",
+  "taxId": "XX-XXXXXXX",
+  "bankDetails": "Routing 000000000 | Account 00000000",
+  "logoPath": "path/to/logo.png",
+  "color": "#111827"
+}
+6) Calculation Engine (deterministic & testable)
+Item row total = quantity * unitPrice.
+
+Item-level discount:
+
+If %: itemTotal * (discount% / 100).
+
+If fixed: subtract fixed value (bounded at 0).
+
+Item subtotal after item-level discount = itemTotal - itemDiscount.
+
+Invoice-level discounts apply on sum of item subtotals (configurable order: before/after fees; default: before fees).
+
+Fees:
+
+Type % → base * (rate/100).
+
+Type fixed → fixed amount.
+
+applyBase options: subtotal, subtotal_after_item_discounts, subtotal_after_invoice_discounts, or grand_total_pre_tax.
+
+Taxes:
+
+Each tax has rate%, priority (1..n), category filter (apply only to items matching taxCategory), and applyAfterDiscounts flag.
+
+By default, taxes apply on (item subtotals after all discounts) + applicable fees.
+
+If multiple taxes, compute in ascending priority (so later taxes can compound on prior taxes if compound=true is ever added; default compound=false).
+
+Totals:
+
+subtotal = sum of (item qty * price) before discounts.
+
+itemDiscounts = sum of all item-level discounts.
+
+invoiceDiscounts = sum of invoice-level discounts.
+
+fees = sum of all fees.
+
+tax = sum of all taxes.
+
+grandTotal = subtotal - itemDiscounts - invoiceDiscounts + fees + tax.
+
+paid = sum(payments).
+
+balanceDue = grandTotal - paid (min 0).
+
+Rounding: Use banker's rounding to 2 decimals; configurable currency precision.
+
+7) Template/Rendering System
+Use Mustache/Handlebars-style bindings in HTML template:
+
+{{business.name}}, {{client.name}}, {{invoice.invoiceNumber}}, {{#each items}}...{{/each}}, {{totals.grandTotal}}, etc.
+
+Provide 3 starter templates:
+
+Clean Professional (minimal, left-aligned logo).
+
+Modern Stripe (bold color bar at top).
+
+Compact Ledger (dense, multi-page friendly).
+
+Print styles: page margins, avoid page-breaks mid-row (use page-break-inside: avoid;), sticky header row on multipage.
+
+8) Settings
+Currency, locale/number formatting, date format.
+
+Auto-increment invoice number pattern (INV-{YYYY}-{#####}).
+
+Default taxes/fees profiles.
+
+Default template and business profile.
+
+Backup/restore: export/import all data as a single JSON bundle.
+
+9) Accessibility & UX
+Keyboard shortcuts: New (Ctrl/Cmd+N), Save (Ctrl/Cmd+S), Export PDF (Ctrl/Cmd+P), Add Item (Ctrl/Cmd+I).
+
+Form usability: Tab order, aria labels, high contrast mode.
+
+Undo/Redo within current session (10 steps).
+
+10) Security & Privacy
+100% offline operation.
+
+No telemetry or network calls.
+
+Files saved to user’s machine under a clearly labeled folder (e.g., “Invoice Studio Pro”).
+
+11) Testing & Acceptance Criteria
+Implement unit tests for:
+
+Single item with % discount, multi-tax stack.
+
+Multi items, mixed discounts, fixed + % fees.
+
+Zero-tax invoice, negative discounts prevented.
+
+Rounding edge cases (e.g., 0.005).
+
+Partial payments > grand total clamp to balance 0.
+
+PDF export equals on-screen totals.
+
+Opening old invoices preserves original totals even if default tax/fee settings change.
+
+Acceptance checklist (must pass):
+
+ Runs offline on Windows & macOS with installers.
+
+ Live preview updates <50ms after input change.
+
+ Create, Save, Save as Template, Open all work as expected.
+
+ PDF export matches preview 1:1 (fonts embedded).
+
+ At least 3 bundled templates; user can create new ones.
+
+ Taxes & fees configurable and applied correctly with priorities.
+
+ Autosave every 10s and on blur; recover after crash.
+
+ Library view with search by client, invoice #, status (Draft/Paid/Overdue).
+
+ Localization ready (strings file), currency formats.
+
+12) Example HTML/CSS Bindings (Starter Template)
+(Use as the base for “Clean Professional” template. Bind fields exactly as shown.)
+
+html
+Copy
+Edit
+<div class="invoice p-8">
+  <header class="flex items-start justify-between mb-8">
+    <div class="flex items-center gap-4">
+      <img src="{{brand.logoPath}}" alt="Logo" style="height:64px;" />
+      <div>
+        <h1 style="font-family: {{brand.fontFamilyHeader}}; font-size: 24px; color: {{brand.primaryColor}};">{{business.name}}</h1>
+        <div style="font-family: {{brand.fontFamilyBody}}; font-size: 12px; color:#374151;">
+          {{business.address}} · {{business.email}} · {{business.phone}}
+        </div>
+      </div>
+    </div>
+    <div class="text-right">
+      <div style="font-size:28px; color: {{brand.accentColor}}; font-weight:700;">INVOICE</div>
+      <div># {{invoice.invoiceNumber}}</div>
+      <div>Issue: {{invoice.issueDate}} · Due: {{invoice.dueDate}}</div>
+    </div>
+  </header>
+
+  <section class="grid grid-cols-2 gap-6 mb-6">
+    <div>
+      <h3 class="font-semibold">Bill To</h3>
+      <div>{{client.name}}</div>
+      <div>{{client.company}}</div>
+      <div>{{client.billingAddress}}</div>
+      <div>{{client.email}} · {{client.phone}}</div>
+    </div>
+    <div>
+      <h3 class="font-semibold">Ship To</h3>
+      <div>{{client.shippingAddress}}</div>
+      <div>PO: {{invoice.poNumber}}</div>
+      <div>Terms: {{invoice.paymentTerms}}</div>
+      <div>Currency: {{invoice.currency}}</div>
+    </div>
+  </section>
+
+  <table class="w-full border-collapse mb-6">
+    <thead>
+      <tr style="background:#F3F4F6;">
+        <th class="text-left p-2">Item</th>
+        <th class="text-left p-2">Description</th>
+        <th class="text-right p-2">Qty</th>
+        <th class="text-right p-2">Unit</th>
+        <th class="text-right p-2">Discount</th>
+        <th class="text-right p-2">Amount</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each items}}
+      <tr>
+        <td class="p-2">{{name}}</td>
+        <td class="p-2">{{description}}</td>
+        <td class="p-2" style="text-align:right;">{{quantity}}</td>
+        <td class="p-2" style="text-align:right;">{{unitPrice}}</td>
+        <td class="p-2" style="text-align:right;">
+          {{#if discount}}{{discount.type}} {{discount.value}}{{/if}}
+        </td>
+        <td class="p-2" style="text-align:right;">{{calculatedLineTotal}}</td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+
+  <section class="grid grid-cols-2 gap-6">
+    <div>
+      <h3 class="font-semibold">Notes</h3>
+      <div>{{notes}}</div>
+      <h3 class="font-semibold mt-4">Terms</h3>
+      <div>{{terms}}</div>
+    </div>
+    <div>
+      <div class="flex justify-between"><span>Subtotal</span><span>{{totals.subtotal}}</span></div>
+      <div class="flex justify-between"><span>Item Discounts</span><span>-{{totals.itemDiscounts}}</span></div>
+      <div class="flex justify-between"><span>Invoice Discounts</span><span>-{{totals.invoiceDiscounts}}</span></div>
+      <div class="flex justify-between"><span>Fees</span><span>{{totals.fees}}</span></div>
+      {{#each taxBreakdown}}
+      <div class="flex justify-between"><span>{{label}}</span><span>{{amount}}</span></div>
+      {{/each}}
+      <div class="flex justify-between font-semibold"><span>Total</span><span>{{totals.grandTotal}}</span></div>
+      <div class="flex justify-between"><span>Paid</span><span>-{{totals.paid}}</span></div>
+      <div class="flex justify-between font-bold"><span>Balance Due</span><span>{{totals.balanceDue}}</span></div>
+    </div>
+  </section>
+
+  <footer class="mt-8 text-center text-xs text-gray-500">
+    {{layout.footerText}}
+  </footer>
+</div>
+13) Seed Data (for demo & tests)
+Create a demo invoice with:
+
+4 items (two taxable, one non-taxable taxCategory: none, one with 10% item discount).
+
+Taxes: State 6.5% (priority 1), Local 1% (priority 2).
+
+Fees: Processing 3.5% on subtotal after discounts; Delivery $15 fixed.
+
+One payment of $300.
+
+Expected computed totals embedded as snapshot tests.
+
+14) Nice-to-Haves (if time permits)
+Estimate → Invoice convert.
+
+Recurring invoices with schedule generator.
+
+Barcodes/QR for invoice URL or payment link (local-only data URL).
+
+Signatures: draw/type signature; embed in PDF.
+
+Multi-currency with manual exchange rate entry (no web calls).
+
+Build this exactly as specified. Prioritize correctness of calculations, fast live preview, and flawless PDF parity. Ensure clean, modern UI, great typography, and accessible controls. Produce production-ready code, installers for Windows (.exe) and macOS (.dmg/.pkg), and a README with usage & troubleshooting.
+

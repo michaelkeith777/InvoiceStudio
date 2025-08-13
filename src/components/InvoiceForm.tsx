@@ -255,31 +255,16 @@ const InvoiceForm: React.FC = () => {
               </div>
             </div>
             
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Tax ID
-                </label>
-                <input
-                  type="text"
-                  value={businessProfile.taxId}
-                  onChange={(e) => updateBusinessProfile({ id: 'default', taxId: e.target.value })}
-                  className="form-input"
-                  placeholder="XX-XXXXXXX"
-                />
-              </div>
-              
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Brand Color
-                </label>
-                <input
-                  type="color"
-                  value={businessProfile.color}
-                  onChange={(e) => updateBusinessProfile({ id: 'default', color: e.target.value })}
-                  className="form-input h-10"
-                />
-              </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Brand Color
+              </label>
+              <input
+                type="color"
+                value={businessProfile.color}
+                onChange={(e) => updateBusinessProfile({ id: 'default', color: e.target.value })}
+                className="form-input h-10"
+              />
             </div>
             
             {/* Logo Upload Section */}
@@ -337,18 +322,7 @@ const InvoiceForm: React.FC = () => {
               </div>
             </div>
             
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Bank Details
-              </label>
-              <input
-                type="text"
-                value={businessProfile.bankDetails}
-                onChange={(e) => updateBusinessProfile({ id: 'default', bankDetails: e.target.value })}
-                className="form-input"
-                placeholder="Routing 000000000 | Account 00000000"
-              />
-            </div>
+
             
             <button
               onClick={saveBusinessProfile}

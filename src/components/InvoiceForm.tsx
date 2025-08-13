@@ -46,7 +46,7 @@ const InvoiceForm: React.FC = () => {
       name: '',
       description: '',
       quantity: 1,
-      unitPrice: 0,
+      unitPrice: '' as any,
       discount: null,
       taxCategory: 'standard',
       notes: ''
@@ -104,7 +104,7 @@ const InvoiceForm: React.FC = () => {
       id: uuidv4(),
       label: 'Fee',
       type: 'percent',
-      value: 0,
+      value: '' as any,
       applyBase: 'subtotal_after_item_discounts'
     };
     updateField('fees', [...currentInvoice.fees, newFee]);
@@ -127,7 +127,7 @@ const InvoiceForm: React.FC = () => {
     const newTax: Tax = {
       id: uuidv4(),
       label: 'Tax',
-      rate: 0,
+      rate: '' as any,
       category: 'standard',
       priority: currentInvoice.taxes.length + 1,
       applyAfterDiscounts: true
@@ -153,7 +153,7 @@ const InvoiceForm: React.FC = () => {
       id: uuidv4(),
       date: format(new Date(), 'yyyy-MM-dd'),
       method: 'Cash',
-      amount: 0
+      amount: '' as any
     };
     updateField('payments', [...currentInvoice.payments, newPayment]);
   };
@@ -629,11 +629,12 @@ const InvoiceForm: React.FC = () => {
                     </label>
                     <input
                       type="number"
-                      value={item.unitPrice}
-                      onChange={(e) => updateItem(item.id, 'unitPrice', parseFloat(e.target.value) || 0)}
+                      value={typeof item.unitPrice === 'string' && item.unitPrice === '' ? '' : item.unitPrice}
+                      onChange={(e) => updateItem(item.id, 'unitPrice', e.target.value === '' ? '' : parseFloat(e.target.value) || '')}
                       className="form-input text-sm"
                       min="0"
                       step="0.01"
+                      placeholder="0.00"
                     />
                   </div>
                   
@@ -873,11 +874,12 @@ Technical specifications:
                     </select>
                     <input
                       type="number"
-                      value={fee.value}
-                      onChange={(e) => updateFee(fee.id, 'value', parseFloat(e.target.value) || 0)}
+                      value={typeof fee.value === 'string' && fee.value === '' ? '' : fee.value}
+                      onChange={(e) => updateFee(fee.id, 'value', e.target.value === '' ? '' : parseFloat(e.target.value) || '')}
                       className="form-input text-sm w-20"
                       min="0"
                       step="0.01"
+                      placeholder="0.00"
                     />
                     <button
                       onClick={() => removeFee(fee.id)}
@@ -933,11 +935,12 @@ Technical specifications:
                     <div className="flex items-center space-x-1">
                       <input
                         type="number"
-                        value={tax.rate}
-                        onChange={(e) => updateTax(tax.id, 'rate', parseFloat(e.target.value) || 0)}
+                        value={typeof tax.rate === 'string' && tax.rate === '' ? '' : tax.rate}
+                        onChange={(e) => updateTax(tax.id, 'rate', e.target.value === '' ? '' : parseFloat(e.target.value) || '')}
                         className="form-input text-sm w-20"
                         min="0"
                         step="0.01"
+                        placeholder="0.00"
                       />
                       <span className="text-sm text-gray-500">%</span>
                     </div>
@@ -1034,11 +1037,11 @@ Technical specifications:
                 <input
                   type="text"
                   inputMode="decimal"
-                  value={payment.amount.toString()}
+                  value={typeof payment.amount === 'string' && payment.amount === '' ? '' : payment.amount.toString()}
                   onChange={(e) => {
                     const value = e.target.value.replace(/[^0-9.]/g, '');
                     if (value === '' || /^\d*\.?\d*$/.test(value)) {
-                      updatePayment(payment.id, 'amount', parseFloat(value) || 0);
+                      updatePayment(payment.id, 'amount', value === '' ? '' : parseFloat(value) || '');
                     }
                   }}
                   className="form-input text-sm w-32"

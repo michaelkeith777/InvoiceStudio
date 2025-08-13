@@ -56,7 +56,7 @@ export const fixedCleanProfessionalTemplate: Template = {
     <div>
       <h3 style="font-weight: 600; margin-bottom: 8px; color: #374151;">Invoice Details</h3>
       <div style="line-height: 1.5;">
-        <div><strong>Ship To:</strong><br>{{client.shippingAddress}}</div>
+        <div>{{client.shippingAddress}}</div>
         <div style="margin-top: 4px;"><strong>PO:</strong> {{invoice.poNumber}}</div>
         <div style="margin-top: 4px;"><strong>Terms:</strong> {{invoice.paymentTermsDisplay}}</div>
         <div style="margin-top: 4px;"><strong>Currency:</strong> {{invoice.currency}}</div>

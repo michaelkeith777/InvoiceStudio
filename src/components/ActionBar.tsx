@@ -4,6 +4,7 @@ import { exportToPDF } from '../utils/storage';
 import { generateInvoiceHTML } from '../utils/templateRenderer';
 import CalculationSummary from './CalculationSummary';
 import TemplateSelector from './TemplateSelector';
+import InvoiceManager from './InvoiceManager';
 
 const ActionBar: React.FC = () => {
   const { 
@@ -26,6 +27,7 @@ const ActionBar: React.FC = () => {
   const [templateName, setTemplateName] = useState('');
   const [showSaveSuccess, setShowSaveSuccess] = useState(false);
   const [showDuplicateSuccess, setShowDuplicateSuccess] = useState(false);
+  const [showInvoiceManager, setShowInvoiceManager] = useState(false);
   const [zoomLevel, setZoomLevel] = useState(100);
 
   const handleSave = async () => {
@@ -135,6 +137,7 @@ const ActionBar: React.FC = () => {
               {showDuplicateSuccess ? '✓ Duplicated!' : 'Duplicate'}
             </button>
             <button onClick={() => setShowTemplateSelector(true)} className="px-3 py-1 text-sm bg-gray-100 text-gray-700 rounded hover:bg-gray-200">Templates</button>
+            <button onClick={() => setShowInvoiceManager(true)} className="px-3 py-1 text-sm bg-gray-100 text-gray-700 rounded hover:bg-gray-200">Current Invoices</button>
             <button onClick={handleExportPDF} disabled={isExporting || !currentInvoice} className="px-3 py-1 text-sm bg-green-600 text-white rounded hover:bg-green-700">{isExporting ? 'Exporting...' : 'PDF'}</button>
           </div>
 
@@ -227,6 +230,14 @@ const ActionBar: React.FC = () => {
             </div>
           </div>
         </div>
+      )}
+
+      {/* Invoice Manager Modal */}
+      {showInvoiceManager && (
+        <InvoiceManager 
+          isOpen={showInvoiceManager}
+          onClose={() => setShowInvoiceManager(false)}
+        />
       )}
     </div>
   );

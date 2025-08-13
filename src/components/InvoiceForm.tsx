@@ -746,6 +746,26 @@ Technical specifications:
 • Performance optimization
 • Clean, semantic code structure"
             />
+            
+            {currentInvoice.workDetails && currentInvoice.workDetails.trim() && (
+              <div className="mt-4 p-4 bg-green-50 border border-green-200 rounded-lg">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center">
+                    <div className="w-2 h-2 bg-green-500 rounded-full mr-3"></div>
+                    <span className="text-sm font-medium text-green-800">Work details will appear in invoice preview</span>
+                  </div>
+                  <button
+                    onClick={() => {
+                      // Force re-render of preview by updating timestamp
+                      updateField('updatedAt', new Date().toISOString());
+                    }}
+                    className="text-sm bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700"
+                  >
+                    Refresh Preview
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       )}
@@ -1070,6 +1090,26 @@ Technical specifications:
               Include any other payment methods, bank details, or special instructions
             </p>
           </div>
+          
+          {(currentInvoice.paymentLinks.stripeUrl || currentInvoice.paymentLinks.paypalUrl || currentInvoice.paymentLinks.instructions) && (
+            <div className="mt-4 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center">
+                  <div className="w-2 h-2 bg-blue-500 rounded-full mr-3"></div>
+                  <span className="text-sm font-medium text-blue-800">Payment options will appear in invoice preview</span>
+                </div>
+                <button
+                  onClick={() => {
+                    // Force re-render of preview by updating timestamp
+                    updateField('updatedAt', new Date().toISOString());
+                  }}
+                  className="text-sm bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700"
+                >
+                  Refresh Preview
+                </button>
+              </div>
+            </div>
+          )}
         </div>
       )}
 

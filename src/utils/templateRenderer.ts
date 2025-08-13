@@ -10,6 +10,20 @@ export const prepareTemplateData = (
   template: Template,
   businessProfile: BusinessProfile
 ) => {
+  // Debug the conditions for workDetails and paymentLinks
+  const hasWorkDetails = !!(invoice.workDetails && invoice.workDetails.trim());
+  const hasPaymentLinks = !!(
+    invoice.paymentLinks.stripeUrl || 
+    invoice.paymentLinks.paypalUrl || 
+    invoice.paymentLinks.instructions
+  );
+  
+  console.log('Template conditions:', {
+    workDetails: invoice.workDetails,
+    hasWorkDetails,
+    paymentLinks: invoice.paymentLinks,
+    hasPaymentLinks
+  });
 
   // Prepare items with calculated values
   const itemsWithCalculations = invoice.items.map(item => ({

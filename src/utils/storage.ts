@@ -1,6 +1,13 @@
 import { FileOperationResult } from '../types';
 
 /**
+ * Check if running in Electron
+ */
+const isElectron = (): boolean => {
+  return typeof window !== 'undefined' && window.process && window.process.type === 'renderer';
+};
+
+/**
  * Save data to browser localStorage
  */
 export const saveFile = async (filePath: string, data: any): Promise<FileOperationResult> => {
@@ -69,17 +76,55 @@ export const deleteFile = async (filePath: string): Promise<FileOperationResult>
 };
 
 /**
- * Export invoice as PDF
+ * Export invoice as PDF using browser print functionality
  */
 export const exportToPDF = async (htmlContent: string, filename: string): Promise<FileOperationResult> => {
-  if (!isElectron()) {
-    return { success: false, error: 'Not running in Electron environment' };
-  }
-
   try {
-    const { ipcRenderer } = window.require('electron');
-    const result = await ipcRenderer.invoke('export-pdf', { htmlContent, filename });
-    return result;
+    // Create a new window for printing
+    const printWindow = window.open('', '_blank');
+    if (!printWindow) {
+      throw new Error('Unable to open print window. Please allow popups.');
+    }
+
+    // Write the HTML content with print styles
+    printWindow.document.write(`
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <title>${filename}</title>
+          <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+          <style>
+            @media print {
+              body { margin: 0; padding: 0; }
+              @page { 
+                size: A4; 
+                margin: 0.5in; 
+              }
+            }
+            body {
+              font-family: 'Inter', sans-serif;
+              margin: 0;
+              padding: 20px;
+            }
+          </style>
+        </head>
+        <body>
+          ${htmlContent}
+        </body>
+      </html>
+    `);
+    
+    printWindow.document.close();
+    
+    // Wait for content to load then trigger print
+    printWindow.onload = () => {
+      setTimeout(() => {
+        printWindow.print();
+        printWindow.close();
+      }, 500);
+    };
+
+    return { success: true, path: filename };
   } catch (error) {
     console.error('Error exporting PDF:', error);
     return { success: false, error: error instanceof Error ? error.message : 'Unknown error' };

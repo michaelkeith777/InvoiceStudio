@@ -26,12 +26,15 @@ const InvoiceForm: React.FC = () => {
 
   // Helper function to update nested fields
   const updateNestedField = (parentField: string, field: string, value: any) => {
-    updateInvoice({
-      [parentField]: {
-        ...currentInvoice[parentField as keyof typeof currentInvoice],
-        [field]: value
-      }
-    });
+    const currentValue = currentInvoice[parentField as keyof typeof currentInvoice];
+    if (typeof currentValue === 'object' && currentValue !== null) {
+      updateInvoice({
+        [parentField]: {
+          ...currentValue,
+          [field]: value
+        }
+      });
+    }
   };
 
   // Item management functions

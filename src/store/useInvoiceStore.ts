@@ -293,7 +293,22 @@ export const useInvoiceStore = create<InvoiceStore>((set, get) => ({
       const result = await listFiles('invoices');
       
       if (result.success) {
-        set({ invoiceList: result.files || [] });
+        const fileList = result.files || [];
+        const invoiceList: InvoiceListItem[] = [];
+        
+        for (const filename of fileList) {
+          const invoiceResult = await loadFile(`invoices/${filename}`);
+          if (invoiceResult.success && invoiceResult.data) {
+            invoiceList.push({
+              filename,
+              path: `invoices/${filename}`,
+              data: invoiceResult.data as Invoice,
+              modifiedAt: new Date()
+            });
+          }
+        }
+        
+        set({ invoiceList });
       } else {
         console.error('Failed to load invoice list:', result.error);
       }
@@ -356,7 +371,15 @@ export const useInvoiceStore = create<InvoiceStore>((set, get) => ({
       const result = await listFiles('templates');
       
       if (result.success) {
-        const userTemplates = result.files?.map(f => f.data as Template) || [];
+        const userTemplates: Template[] = [];
+        if (result.files) {
+          for (const filename of result.files) {
+            const templateResult = await loadFile(`templates/${filename}`);
+            if (templateResult.success && templateResult.data) {
+              userTemplates.push(templateResult.data as Template);
+            }
+          }
+        }
         set({ templates: [...defaultTemplates, ...userTemplates] });
       } else {
         // If templates directory doesn't exist or is empty, use defaults

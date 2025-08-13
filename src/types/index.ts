@@ -157,6 +157,7 @@ export interface FileOperationResult {
   error?: string;
   data?: any;
   path?: string;
+  files?: string[];
 }
 
 export interface InvoiceListItem {

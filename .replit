@@ -4,6 +4,7 @@ expertMode = true
 
 [nix]
 channel = "stable-25_05"
+packages = ["glib"]
 
 [workflows]
 runButton = "Project"
@@ -19,10 +20,6 @@ args = "Build App"
 
 [[workflows.workflow.tasks]]
 task = "workflow.run"
-args = "Electron App"
-
-[[workflows.workflow.tasks]]
-task = "workflow.run"
 args = "Dev Server"
 
 [[workflows.workflow]]
@@ -35,17 +32,6 @@ args = "npx webpack --mode production"
 
 [workflows.workflow.metadata]
 outputType = "console"
-
-[[workflows.workflow]]
-name = "Electron App"
-author = "agent"
-
-[[workflows.workflow.tasks]]
-task = "shell.exec"
-args = "electron ."
-
-[workflows.workflow.metadata]
-outputType = "vnc"
 
 [[workflows.workflow]]
 name = "Dev Server"

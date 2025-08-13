@@ -282,6 +282,61 @@ const InvoiceForm: React.FC = () => {
               </div>
             </div>
             
+            {/* Logo Upload Section */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Company Logo
+              </label>
+              <div className="space-y-3">
+                <div className="flex items-center space-x-4">
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) => {
+                      const file = e.target.files?.[0];
+                      if (file) {
+                        const reader = new FileReader();
+                        reader.onload = (event) => {
+                          const logoUrl = event.target?.result as string;
+                          updateBusinessProfile({ id: 'default', logoPath: logoUrl });
+                        };
+                        reader.readAsDataURL(file);
+                      }
+                    }}
+                    className="hidden"
+                    id="logo-upload"
+                  />
+                  <label
+                    htmlFor="logo-upload"
+                    className="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 text-sm rounded cursor-pointer border border-gray-300"
+                  >
+                    Choose Logo File
+                  </label>
+                  {businessProfile.logoPath && (
+                    <button
+                      onClick={() => updateBusinessProfile({ id: 'default', logoPath: '' })}
+                      className="px-3 py-1 bg-red-100 hover:bg-red-200 text-red-700 text-sm rounded border border-red-300"
+                    >
+                      Remove Logo
+                    </button>
+                  )}
+                </div>
+                
+                {businessProfile.logoPath && (
+                  <div className="mt-3">
+                    <div className="w-32 h-20 border border-gray-200 rounded overflow-hidden bg-white">
+                      <img
+                        src={businessProfile.logoPath}
+                        alt="Company Logo"
+                        className="w-full h-full object-contain"
+                      />
+                    </div>
+                    <p className="text-xs text-gray-500 mt-1">Logo preview (will appear on top-left of invoice)</p>
+                  </div>
+                )}
+              </div>
+            </div>
+            
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
                 Bank Details

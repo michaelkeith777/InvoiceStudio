@@ -108,97 +108,29 @@ const ActionBar: React.FC = () => {
   };
 
   return (
-    <div className="bg-white border-b border-gray-200 px-6 py-4">
+    <div className="bg-white border-b border-gray-200 px-4 py-2">
       <div className="flex items-center justify-between">
-        {/* Left side - Main actions */}
-        <div className="flex items-center space-x-4">
-          <div className="flex items-center space-x-2">
-            <button
-              onClick={createNewInvoice}
-              className="btn-primary"
-            >
-              New Invoice
-            </button>
-            
-            <button
-              onClick={handleSave}
-              disabled={isLoading || !hasUnsavedChanges}
-              className="btn-secondary"
-            >
-              {isLoading ? 'Saving...' : 'Save'}
-            </button>
-            
-            <button
-              onClick={duplicateInvoice}
-              disabled={!currentInvoice}
-              className="btn-secondary"
-            >
-              Duplicate
-            </button>
+        {/* Left side - App title and actions */}
+        <div className="flex items-center space-x-3">
+          <h1 className="text-lg font-semibold text-gray-900">StoneActive LLC Invoice Studio</h1>
+          
+          <div className="h-4 w-px bg-gray-300"></div>
+          
+          <div className="flex items-center space-x-1">
+            <button onClick={createNewInvoice} className="px-3 py-1 text-sm bg-blue-600 text-white rounded hover:bg-blue-700">New</button>
+            <button onClick={handleSave} disabled={isLoading || !hasUnsavedChanges} className="px-3 py-1 text-sm bg-gray-100 text-gray-700 rounded hover:bg-gray-200">{isLoading ? 'Saving...' : 'Save'}</button>
+            <button onClick={duplicateInvoice} disabled={!currentInvoice} className="px-3 py-1 text-sm bg-gray-100 text-gray-700 rounded hover:bg-gray-200">Duplicate</button>
+            <button onClick={() => setShowTemplateSelector(true)} className="px-3 py-1 text-sm bg-gray-100 text-gray-700 rounded hover:bg-gray-200">Templates</button>
+            <button onClick={handleExportPDF} disabled={isExporting || !currentInvoice} className="px-3 py-1 text-sm bg-green-600 text-white rounded hover:bg-green-700">{isExporting ? 'Exporting...' : 'PDF'}</button>
           </div>
 
-          <div className="h-6 w-px bg-gray-300"></div>
-
-          <div className="flex items-center space-x-2">
-            <button
-              onClick={() => setShowTemplateSelector(true)}
-              className="btn-secondary"
-            >
-              Templates
-            </button>
-            
-            <button
-              onClick={() => setShowSaveTemplateDialog(true)}
-              disabled={!currentInvoice}
-              className="btn-secondary"
-            >
-              Save as Template
-            </button>
-          </div>
-
-          <div className="h-6 w-px bg-gray-300"></div>
-
-          <button
-            onClick={handleExportPDF}
-            disabled={isExporting || !currentInvoice}
-            className="btn-primary"
-          >
-            {isExporting ? 'Exporting...' : 'Export PDF'}
-          </button>
-
-          <div className="h-6 w-px bg-gray-300"></div>
+          <div className="h-4 w-px bg-gray-300"></div>
 
           {/* Zoom Controls */}
-          <div className="flex items-center space-x-1">
-            <button
-              onClick={handleZoomOut}
-              disabled={zoomLevel <= 50}
-              className="p-2 text-gray-600 hover:text-gray-800 hover:bg-gray-100 rounded"
-              title="Zoom Out"
-            >
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 12H4" />
-              </svg>
-            </button>
-            
-            <button
-              onClick={resetZoom}
-              className="px-2 py-1 text-xs font-mono text-gray-600 hover:text-gray-800 hover:bg-gray-100 rounded min-w-[3rem]"
-              title="Reset Zoom"
-            >
-              {zoomLevel}%
-            </button>
-            
-            <button
-              onClick={handleZoomIn}
-              disabled={zoomLevel >= 200}
-              className="p-2 text-gray-600 hover:text-gray-800 hover:bg-gray-100 rounded"
-              title="Zoom In"
-            >
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-              </svg>
-            </button>
+          <div className="flex items-center space-x-0.5">
+            <button onClick={handleZoomOut} disabled={zoomLevel <= 50} className="p-1 text-gray-600 hover:text-gray-800 hover:bg-gray-100 rounded text-sm" title="Zoom Out">−</button>
+            <button onClick={resetZoom} className="px-2 py-1 text-xs font-mono text-gray-600 hover:text-gray-800 hover:bg-gray-100 rounded min-w-[2.5rem]" title="Reset Zoom">{zoomLevel}%</button>
+            <button onClick={handleZoomIn} disabled={zoomLevel >= 200} className="p-1 text-gray-600 hover:text-gray-800 hover:bg-gray-100 rounded text-sm" title="Zoom In">+</button>
           </div>
         </div>
 

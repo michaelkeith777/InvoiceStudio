@@ -1,91 +1,98 @@
-# Netlify Deployment Guide
+# Deployment Configuration
 
-## Quick Deploy to Netlify
+This document outlines the deployment fixes applied to resolve the Cloud Run deployment issues.
 
-### Option 1: Drag & Drop (Fastest)
-1. Run the build: `npx webpack --mode production`
-2. Upload the entire `build/` folder to Netlify manually
-3. Your app will be live immediately
+## Issues Fixed
 
-### Option 2: Git Repository (Recommended)
-1. **Push to GitHub/GitLab**:
+1. **Missing deployment section in .replit file** - Created alternative deployment configuration files
+2. **Generic error in run command** - Added proper production server commands
+3. **Incomplete deployment configuration** - Added comprehensive deployment setup
+
+## Deployment Files Created
+
+### 1. Production Server Scripts
+- `start.sh` - Main production startup script using Node.js/Express
+- `start_serve.sh` - Alternative startup script using serve package  
+- `server.js` - Express server for serving static files
+
+### 2. Configuration Files
+- `replit_deploy.toml` - Replit deployment configuration
+- `deploy.json` - JSON deployment configuration
+- `Dockerfile` - Container configuration for Cloud Run
+
+### 3. Dependencies Added
+- `serve` - Static file server package
+- `express` - Node.js web server framework
+
+## Deployment Options
+
+### Option 1: Express Server (Recommended)
+```bash
+chmod +x start.sh
+./start.sh
+```
+
+### Option 2: Serve Package
+```bash
+chmod +x start_serve.sh
+./start_serve.sh
+```
+
+### Option 3: Direct Commands
+```bash
+# Build
+npx webpack --mode production
+
+# Serve with Express
+node server.js
+
+# OR serve with serve package
+serve -s build -l 5000 --host 0.0.0.0
+```
+
+## Configuration Details
+
+### Port Configuration
+- Production server listens on port 5000
+- Uses 0.0.0.0 host for external access
+- Supports environment variable PORT override
+
+### Build Process
+- Webpack builds to `build/` directory
+- Production mode with optimizations enabled
+- Static assets properly handled
+
+### Deployment Target
+- Configured for Google Cloud Run
+- Container-ready with Dockerfile
+- Environment variables supported
+
+## Testing Deployment
+
+1. **Local Testing:**
    ```bash
-   git add .
-   git commit -m "Ready for Netlify deployment"
-   git push origin main
+   npx webpack --mode production
+   node server.js
    ```
 
-2. **Connect to Netlify**:
-   - Go to [netlify.com](https://netlify.com)
-   - Click "New site from Git"
-   - Connect your repository
-
-3. **Build Settings** (Auto-detected from netlify.toml):
-   - **Build command**: `npx webpack --mode production`
-   - **Publish directory**: `build`
-   - **Node version**: 20
-
-4. **Deploy**: Click "Deploy site"
-
-## Files Created for Netlify
-
-- ✅ `netlify.toml` - Build configuration and redirects
-- ✅ `_redirects` - Client-side routing support
-- ✅ `index.html` - Moved to main folder (not subfolder)
-- ✅ `build/` - Production build output
-- ✅ Optimized webpack config for static hosting
-
-## Features Working on Netlify
-
-- ✅ Single Page Application routing
-- ✅ Real-time invoice preview
-- ✅ Browser-based data storage
-- ✅ PDF export functionality
-- ✅ Responsive design
-- ✅ Micro-animations
-- ✅ Professional templates
-
-## Build Output
-
-The `build/` directory contains:
-```
-build/
-├── index.html
-├── _redirects
-└── static/
-    ├── js/
-    │   ├── main.[hash].js
-    │   ├── vendors.[hash].js
-    │   └── runtime.[hash].js
-    └── css/
-        └── main.[hash].css
-```
-
-## Custom Domain (Optional)
-
-After deployment, you can:
-1. Go to Site settings → Domain management
-2. Add your custom domain
-3. Netlify will automatically handle HTTPS
+2. **Container Testing:**
+   ```bash
+   docker build -t invoice-app .
+   docker run -p 5000:5000 invoice-app
+   ```
 
 ## Environment Variables
 
-This app runs entirely client-side with no backend dependencies, so no environment variables are needed for basic functionality.
+- `NODE_ENV=production` - Set production mode
+- `PORT=5000` - Server port (default: 5000)
 
-If you add payment processing or external APIs later, add them in:
-- Netlify Dashboard → Site settings → Environment variables
+## Next Steps
 
-## Troubleshooting
+The deployment configuration is now complete. The Replit deployment system should be able to:
 
-**404 errors on page refresh?**
-- The `_redirects` file should handle this automatically
-- Ensure `netlify.toml` redirects are configured correctly
+1. Build the application using webpack
+2. Start the production server
+3. Serve the application on the configured port
+4. Handle routing for the React single-page application
 
-**Build failing?**
-- Check Node version is set to 20 in netlify.toml
-- Verify all dependencies are in package.json
-- Review build logs for specific errors
-
-**Assets not loading?**
-- Webpack is configured with proper publicPath: '/'
-- Static assets are in the build/static/ directory
+To deploy, use the Deploy button in the Replit interface, which will now have access to the proper configuration files and startup scripts.

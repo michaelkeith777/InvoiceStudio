@@ -1,0 +1,8 @@
+[deploy]
+deploymentTarget = "cloudrun"
+run = "sh start.sh"
+ignorePorts = false
+
+[deploy.env]
+NODE_ENV = "production"
+PORT = "5000"

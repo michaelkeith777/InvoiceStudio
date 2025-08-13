@@ -23,7 +23,11 @@ Preferred communication style: Simple, everyday language.
 - **Architecture**: Client-side React app with browser-based storage and APIs
 - **Security**: CSP-compliant with secure client-side operations
 - **Development**: Webpack-based build system with hot reload support
-- **Deployment**: Netlify-optimized static site deployment with client-side routing support
+- **Deployment**: Multi-platform deployment support:
+  - Netlify-optimized static site deployment with client-side routing support
+  - Replit Cloud Run deployment with Express.js production server
+  - Docker containerization support for cloud deployment
+  - Static file serving via serve package or Express.js server
 
 ### Data Storage & Persistence
 - **Storage Method**: Browser localStorage and IndexedDB for client-side persistence
@@ -93,4 +97,18 @@ Preferred communication style: Simple, everyday language.
 - **Client-side Routing**: Full SPA functionality with proper URL handling
 - **Performance**: Lighthouse-optimized bundle sizes and loading strategies
 
-Note: The application is designed to be completely offline-first with no external API dependencies during runtime. All external resources are either bundled or have local fallbacks, making it perfect for static hosting platforms like Netlify.
+## Recent Changes
+
+### Deployment Configuration (August 2025)
+- **Issue Resolved**: Fixed Cloud Run deployment errors due to missing deployment section in .replit file
+- **Files Added**: 
+  - `start.sh` and `start_serve.sh` - Production startup scripts
+  - `server.js` - Express.js production server for static file serving
+  - `replit_deploy.toml` and `deploy.json` - Deployment configuration files
+  - `Dockerfile` - Container configuration for Cloud Run deployment
+  - `DEPLOY.md` - Comprehensive deployment documentation
+- **Dependencies Added**: `serve` package and `express` for production serving
+- **Configuration**: Proper port binding (5000) with 0.0.0.0 host for external access
+- **Testing**: Verified server syntax and build output integrity
+
+Note: The application is designed to be completely offline-first with no external API dependencies during runtime. All external resources are either bundled or have local fallbacks, making it perfect for static hosting platforms like Netlify and cloud deployment platforms like Replit Cloud Run.

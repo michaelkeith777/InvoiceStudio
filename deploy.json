@@ -1,0 +1,11 @@
+{
+  "deployment": {
+    "run": ["sh", "start.sh"],
+    "deploymentTarget": "cloudrun",
+    "ignorePorts": false
+  },
+  "env": {
+    "NODE_ENV": "production",
+    "PORT": "5000"
+  }
+}

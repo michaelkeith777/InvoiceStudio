@@ -92,10 +92,15 @@ module.exports = (env, argv) => {
       static: {
         directory: path.join(__dirname, 'public'),
       },
-      port: 3000,
+      port: 5000,
+      host: '0.0.0.0',
       hot: true,
       open: false,
       historyApiFallback: true,
+      allowedHosts: 'all',
+      client: {
+        webSocketURL: 'auto://0.0.0.0:0/ws',
+      },
       headers: {
         'Access-Control-Allow-Origin': '*',
       },

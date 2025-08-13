@@ -24,14 +24,24 @@ const ActionBar: React.FC = () => {
   const [showTemplateSelector, setShowTemplateSelector] = useState(false);
   const [showSaveTemplateDialog, setShowSaveTemplateDialog] = useState(false);
   const [templateName, setTemplateName] = useState('');
+  const [showSaveSuccess, setShowSaveSuccess] = useState(false);
+  const [showDuplicateSuccess, setShowDuplicateSuccess] = useState(false);
   const [zoomLevel, setZoomLevel] = useState(100);
 
   const handleSave = async () => {
     const success = await saveInvoice();
     if (success) {
-      // Show success feedback
-      console.log('Invoice saved successfully');
+      setShowSaveSuccess(true);
+      setTimeout(() => setShowSaveSuccess(false), 2000);
+    } else {
+      console.error('Failed to save invoice');
     }
+  };
+
+  const handleDuplicate = () => {
+    duplicateInvoice();
+    setShowDuplicateSuccess(true);
+    setTimeout(() => setShowDuplicateSuccess(false), 2000);
   };
 
   const handleExportPDF = async () => {
@@ -117,9 +127,13 @@ const ActionBar: React.FC = () => {
           <div className="h-4 w-px bg-gray-300"></div>
           
           <div className="flex items-center space-x-1">
-            <button onClick={createNewInvoice} className="px-3 py-1 text-sm bg-blue-600 text-white rounded hover:bg-blue-700">New</button>
-            <button onClick={handleSave} disabled={isLoading || !hasUnsavedChanges} className="px-3 py-1 text-sm bg-gray-100 text-gray-700 rounded hover:bg-gray-200">{isLoading ? 'Saving...' : 'Save'}</button>
-            <button onClick={duplicateInvoice} disabled={!currentInvoice} className="px-3 py-1 text-sm bg-gray-100 text-gray-700 rounded hover:bg-gray-200">Duplicate</button>
+            <button onClick={() => createNewInvoice()} className="px-3 py-1 text-sm bg-blue-600 text-white rounded hover:bg-blue-700">New</button>
+            <button onClick={handleSave} disabled={isLoading || !hasUnsavedChanges} className="px-3 py-1 text-sm bg-gray-100 text-gray-700 rounded hover:bg-gray-200">
+              {isLoading ? 'Saving...' : showSaveSuccess ? '✓ Saved!' : 'Save'}
+            </button>
+            <button onClick={handleDuplicate} disabled={!currentInvoice} className="px-3 py-1 text-sm bg-gray-100 text-gray-700 rounded hover:bg-gray-200">
+              {showDuplicateSuccess ? '✓ Duplicated!' : 'Duplicate'}
+            </button>
             <button onClick={() => setShowTemplateSelector(true)} className="px-3 py-1 text-sm bg-gray-100 text-gray-700 rounded hover:bg-gray-200">Templates</button>
             <button onClick={handleExportPDF} disabled={isExporting || !currentInvoice} className="px-3 py-1 text-sm bg-green-600 text-white rounded hover:bg-green-700">{isExporting ? 'Exporting...' : 'PDF'}</button>
           </div>

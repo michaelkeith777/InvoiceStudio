@@ -122,3 +122,70 @@
     min-height: 400px;
   }
 }
+
+/* Rich text editor styles for invoice preview */
+.work-details-content h1 {
+  font-size: 1.5em;
+  font-weight: bold;
+  margin: 0.5em 0;
+  color: inherit;
+}
+
+.work-details-content h2 {
+  font-size: 1.3em;
+  font-weight: bold;
+  margin: 0.4em 0;
+  color: inherit;
+}
+
+.work-details-content h3 {
+  font-size: 1.1em;
+  font-weight: bold;
+  margin: 0.3em 0;
+  color: inherit;
+}
+
+.work-details-content ul {
+  list-style-type: disc;
+  margin: 0.5em 0 0.5em 1.5em;
+}
+
+.work-details-content ol {
+  list-style-type: decimal;
+  margin: 0.5em 0 0.5em 1.5em;
+}
+
+.work-details-content li {
+  margin: 0.2em 0;
+  line-height: 1.6;
+}
+
+.work-details-content p {
+  margin: 0.5em 0;
+}
+
+.work-details-content div {
+  margin: 0.2em 0;
+}
+
+.work-details-content blockquote {
+  border-left: 4px solid #e5e7eb;
+  margin: 1em 0;
+  padding-left: 1em;
+  color: #6b7280;
+  font-style: italic;
+}
+
+.work-details-content strong, 
+.work-details-content b {
+  font-weight: bold;
+}
+
+.work-details-content em, 
+.work-details-content i {
+  font-style: italic;
+}
+
+.work-details-content u {
+  text-decoration: underline;
+}

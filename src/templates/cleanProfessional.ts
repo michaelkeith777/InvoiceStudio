@@ -105,7 +105,7 @@ export const cleanProfessionalTemplate: Template = {
   <section style="margin-bottom: 2rem;">
     <h3 style="font-weight: 600; margin-bottom: 12px; color: #374151; font-size: 16px;">Details of Work</h3>
     <div style="background: #F9FAFB; padding: 1.5rem; border-radius: 8px; border-left: 4px solid {{brand.primaryColor}};">
-      <div style="font-size: 14px; line-height: 1.6; color: #4B5563; white-space: pre-wrap;">{{workDetails}}</div>
+      <div style="font-size: 14px; line-height: 1.6; color: #4B5563;" class="work-details-content">{{{workDetails}}}</div>
     </div>
   </section>
   {{/if}}

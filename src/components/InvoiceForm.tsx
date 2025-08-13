@@ -3,6 +3,7 @@ import { useInvoiceStore } from '../store/useInvoiceStore';
 import { InvoiceItem, Discount, Fee, Tax, Payment } from '../types';
 import { v4 as uuidv4 } from 'uuid';
 import { format } from 'date-fns';
+import RichTextEditor from './RichTextEditor';
 
 const InvoiceForm: React.FC = () => {
   const { 
@@ -723,11 +724,9 @@ const InvoiceForm: React.FC = () => {
             <label className="block text-sm font-medium text-gray-700 mb-2">
               Project Specifications & Requirements
             </label>
-            <textarea
+            <RichTextEditor
               value={currentInvoice.workDetails}
-              onChange={(e) => updateField('workDetails', e.target.value)}
-              className="form-textarea"
-              rows={12}
+              onChange={(content) => updateField('workDetails', content)}
               placeholder="Describe the work specifications, requirements, deliverables, scope, technical details, timeline, and any other project details here...
 
 Examples:

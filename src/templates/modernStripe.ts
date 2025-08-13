@@ -169,7 +169,7 @@ export const modernStripeTemplate: Template = {
     <section class="mb-8">
       <div style="background: linear-gradient(135deg, #F0F9FF 0%, #E0F2FE 100%); border-radius: 12px; padding: 1.5rem; border-left: 4px solid {{brand.primaryColor}};">
         <h3 style="font-weight: 600; margin-bottom: 12px; color: {{brand.primaryColor}}; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px;">Details of Work</h3>
-        <div style="font-size: 14px; line-height: 1.6; color: #475569; white-space: pre-wrap;">{{workDetails}}</div>
+        <div style="font-size: 14px; line-height: 1.6; color: #475569;" class="work-details-content">{{{workDetails}}}</div>
       </div>
     </section>
     {{/if}}

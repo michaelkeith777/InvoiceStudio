@@ -189,9 +189,9 @@ const InvoiceForm: React.FC = () => {
             <button
               key={section.id}
               onClick={() => setActiveSection(section.id)}
-              className={`py-2 px-1 border-b-2 font-medium text-sm ${
+              className={`py-2 px-1 border-b-2 font-medium text-sm smooth-transition ${
                 activeSection === section.id
-                  ? 'border-blue-500 text-blue-600'
+                  ? 'border-blue-500 text-blue-600 scale-in'
                   : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
               }`}
             >
@@ -203,7 +203,7 @@ const InvoiceForm: React.FC = () => {
 
       {/* Business Profile Section */}
       {activeSection === 'business' && businessProfile && (
-        <div className="space-y-4">
+        <div className="space-y-4 fade-in">
           <h3 className="text-lg font-semibold text-gray-800">Business Profile</h3>
           
           <div className="grid grid-cols-1 gap-4">
@@ -535,7 +535,7 @@ const InvoiceForm: React.FC = () => {
 
       {/* Items Section */}
       {activeSection === 'items' && (
-        <div className="space-y-4">
+        <div className="space-y-4 fade-in">
           <div className="flex items-center justify-between">
             <h3 className="text-lg font-semibold text-gray-800">Line Items</h3>
             <button
@@ -548,19 +548,19 @@ const InvoiceForm: React.FC = () => {
           
           <div className="space-y-4">
             {currentInvoice.items.map((item, index) => (
-              <div key={item.id} className="border border-gray-200 rounded-lg p-4 space-y-3">
+              <div key={item.id} className="border border-gray-200 rounded-lg p-4 space-y-3 hover-scale smooth-transition">
                 <div className="flex items-center justify-between">
                   <span className="text-sm font-medium text-gray-500">Item #{index + 1}</span>
                   <div className="flex space-x-2">
                     <button
                       onClick={() => duplicateItem(item.id)}
-                      className="text-sm text-blue-600 hover:text-blue-800"
+                      className="text-sm text-blue-600 hover:text-blue-800 smooth-transition button-press"
                     >
                       Duplicate
                     </button>
                     <button
                       onClick={() => removeItem(item.id)}
-                      className="text-sm text-red-600 hover:text-red-800"
+                      className="text-sm text-red-600 hover:text-red-800 smooth-transition button-press"
                     >
                       Remove
                     </button>
@@ -706,7 +706,7 @@ const InvoiceForm: React.FC = () => {
                 <p>No items added yet.</p>
                 <button
                   onClick={addItem}
-                  className="btn-primary mt-2"
+                  className="btn-primary mt-2 bounce-in"
                 >
                   Add Your First Item
                 </button>
@@ -718,7 +718,7 @@ const InvoiceForm: React.FC = () => {
 
       {/* Work Details Section */}
       {activeSection === 'work' && (
-        <div className="space-y-4">
+        <div className="space-y-4 fade-in">
           <h3 className="text-lg font-semibold text-gray-800">Details of Work</h3>
           <p className="text-sm text-gray-600">Specify project requirements, scope, and technical specifications.</p>
           

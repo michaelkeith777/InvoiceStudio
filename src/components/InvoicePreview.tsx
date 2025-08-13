@@ -54,7 +54,7 @@ const InvoicePreview: React.FC = () => {
             <span className="text-sm text-gray-600">Zoom:</span>
             <button
               onClick={() => handleZoomChange(zoom - 10)}
-              className="p-1 text-gray-600 hover:text-gray-800"
+              className="p-1 text-gray-600 hover:text-gray-800 smooth-transition button-press"
               disabled={zoom <= 50}
             >
               -
@@ -62,14 +62,14 @@ const InvoicePreview: React.FC = () => {
             <span className="text-sm font-medium w-12 text-center">{zoom}%</span>
             <button
               onClick={() => handleZoomChange(zoom + 10)}
-              className="p-1 text-gray-600 hover:text-gray-800"
+              className="p-1 text-gray-600 hover:text-gray-800 smooth-transition button-press"
               disabled={zoom >= 200}
             >
               +
             </button>
             <button
               onClick={() => setZoom(100)}
-              className="px-2 py-1 text-xs text-gray-600 hover:text-gray-800 border border-gray-300 rounded"
+              className="px-2 py-1 text-xs text-gray-600 hover:text-gray-800 border border-gray-300 rounded smooth-transition button-press"
             >
               Reset
             </button>
@@ -88,7 +88,7 @@ const InvoicePreview: React.FC = () => {
       {/* Preview Content */}
       <div className="flex-1 overflow-auto p-4 bg-gray-100">
         <div 
-          className="invoice-preview mx-auto bg-white shadow-lg"
+          className="invoice-preview mx-auto bg-white shadow-lg hover-scale smooth-transition"
           style={{ 
             transform: `scale(${zoom / 100})`,
             transformOrigin: 'top center',

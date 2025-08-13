@@ -129,30 +129,30 @@ const ActionBar: React.FC = () => {
           <div className="h-4 w-px bg-gray-300"></div>
           
           <div className="flex items-center space-x-1">
-            <button onClick={() => createNewInvoice()} className="px-3 py-1 text-sm bg-blue-600 text-white rounded hover:bg-blue-700">New</button>
-            <button onClick={handleSave} disabled={isLoading || !hasUnsavedChanges} className="px-3 py-1 text-sm bg-gray-100 text-gray-700 rounded hover:bg-gray-200">
+            <button onClick={() => createNewInvoice()} className="px-3 py-1 text-sm bg-blue-600 text-white rounded hover:bg-blue-700 smooth-transition button-press hover-lift">New</button>
+            <button onClick={handleSave} disabled={isLoading || !hasUnsavedChanges} className="px-3 py-1 text-sm bg-gray-100 text-gray-700 rounded hover:bg-gray-200 smooth-transition button-press hover-lift">
               {isLoading ? 'Saving...' : showSaveSuccess ? '✓ Saved!' : 'Save'}
             </button>
-            <button onClick={handleDuplicate} disabled={!currentInvoice} className="px-3 py-1 text-sm bg-gray-100 text-gray-700 rounded hover:bg-gray-200">
+            <button onClick={handleDuplicate} disabled={!currentInvoice} className="px-3 py-1 text-sm bg-gray-100 text-gray-700 rounded hover:bg-gray-200 smooth-transition button-press hover-lift">
               {showDuplicateSuccess ? '✓ Duplicated!' : 'Duplicate'}
             </button>
-            <button onClick={() => setShowTemplateSelector(true)} className="px-3 py-1 text-sm bg-gray-100 text-gray-700 rounded hover:bg-gray-200">Templates</button>
-            <button onClick={() => setShowInvoiceManager(true)} className="px-3 py-1 text-sm bg-gray-100 text-gray-700 rounded hover:bg-gray-200">Current Invoices</button>
-            <button onClick={handleExportPDF} disabled={isExporting || !currentInvoice} className="px-3 py-1 text-sm bg-green-600 text-white rounded hover:bg-green-700">{isExporting ? 'Exporting...' : 'PDF'}</button>
+            <button onClick={() => setShowTemplateSelector(true)} className="px-3 py-1 text-sm bg-gray-100 text-gray-700 rounded hover:bg-gray-200 smooth-transition button-press hover-lift">Templates</button>
+            <button onClick={() => setShowInvoiceManager(true)} className="px-3 py-1 text-sm bg-gray-100 text-gray-700 rounded hover:bg-gray-200 smooth-transition button-press hover-lift">Current Invoices</button>
+            <button onClick={handleExportPDF} disabled={isExporting || !currentInvoice} className="px-3 py-1 text-sm bg-green-600 text-white rounded hover:bg-green-700 smooth-transition button-press hover-lift">{isExporting ? 'Exporting...' : 'PDF'}</button>
           </div>
 
           <div className="h-4 w-px bg-gray-300"></div>
 
           {/* Zoom Controls */}
           <div className="flex items-center space-x-0.5">
-            <button onClick={handleZoomOut} disabled={zoomLevel <= 50} className="p-1 text-gray-600 hover:text-gray-800 hover:bg-gray-100 rounded text-sm" title="Zoom Out">−</button>
-            <button onClick={resetZoom} className="px-2 py-1 text-xs font-mono text-gray-600 hover:text-gray-800 hover:bg-gray-100 rounded min-w-[2.5rem]" title="Reset Zoom">{zoomLevel}%</button>
-            <button onClick={handleZoomIn} disabled={zoomLevel >= 200} className="p-1 text-gray-600 hover:text-gray-800 hover:bg-gray-100 rounded text-sm" title="Zoom In">+</button>
+            <button onClick={handleZoomOut} disabled={zoomLevel <= 50} className="p-1 text-gray-600 hover:text-gray-800 hover:bg-gray-100 rounded text-sm smooth-transition button-press" title="Zoom Out">−</button>
+            <button onClick={resetZoom} className="px-2 py-1 text-xs font-mono text-gray-600 hover:text-gray-800 hover:bg-gray-100 rounded min-w-[2.5rem] smooth-transition button-press" title="Reset Zoom">{zoomLevel}%</button>
+            <button onClick={handleZoomIn} disabled={zoomLevel >= 200} className="p-1 text-gray-600 hover:text-gray-800 hover:bg-gray-100 rounded text-sm smooth-transition button-press" title="Zoom In">+</button>
           </div>
         </div>
 
         {/* Center - Status */}
-        <div className="flex items-center space-x-4">
+        <div className="flex items-center space-x-4 fade-in">
           {error && (
             <div className="flex items-center text-red-600 text-sm">
               <span className="mr-2">⚠️</span>
@@ -171,7 +171,7 @@ const ActionBar: React.FC = () => {
         </div>
 
         {/* Right side - Invoice summary */}
-        <div className="flex items-center">
+        <div className="flex items-center slide-in">
           <CalculationSummary />
         </div>
       </div>

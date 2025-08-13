@@ -114,9 +114,17 @@ export const cleanProfessionalTemplate: Template = {
   <section style="margin-bottom: 2rem; background: #FEF3C7; padding: 1rem; border-radius: 6px; border: 1px solid #F59E0B;">
     <h3 style="font-weight: 600; margin-bottom: 8px; color: #92400E;">Work Details Debug</h3>
     <div style="font-size: 12px; color: #92400E;">
-      Data: "{{workDetails}}" | Has Data: {{#if workDetails}}YES{{else}}NO{{/if}}
+      Data: "{{workDetails}}" | Has Data: {{#if workDetails}}YES{{else}}NO{{/if}} | Length: {{workDetails.length}}
     </div>
   </section>
+  
+  <!-- TESTING: Force show work details without condition -->
+  {{#workDetails}}
+  <section style="margin-bottom: 2rem; background: #E0F2FE; padding: 1rem; border-radius: 6px; border: 1px solid #0284C7;">
+    <h3 style="font-weight: 600; margin-bottom: 8px; color: #0C4A6E;">FORCED Work Details ({{workDetails.length}} chars)</h3>
+    <div style="font-size: 14px; line-height: 1.6; color: #000000;">{{{workDetails}}}</div>
+  </section>
+  {{/workDetails}}
 
   <section class="grid grid-cols-2 gap-8" style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
     <div>

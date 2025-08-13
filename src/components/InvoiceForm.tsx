@@ -179,6 +179,7 @@ const InvoiceForm: React.FC = () => {
             { id: 'client', label: 'Client' },
             { id: 'meta', label: 'Invoice' },
             { id: 'items', label: 'Items' },
+            { id: 'work', label: 'Work Details' },
             { id: 'taxes', label: 'Taxes & Fees' },
             { id: 'payments', label: 'Payments' },
             { id: 'notes', label: 'Notes' }
@@ -708,6 +709,43 @@ const InvoiceForm: React.FC = () => {
                 </button>
               </div>
             )}
+          </div>
+        </div>
+      )}
+
+      {/* Work Details Section */}
+      {activeSection === 'work' && (
+        <div className="space-y-4">
+          <h3 className="text-lg font-semibold text-gray-800">Details of Work</h3>
+          <p className="text-sm text-gray-600">Specify project requirements, scope, and technical specifications.</p>
+          
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Project Specifications & Requirements
+            </label>
+            <textarea
+              value={currentInvoice.workDetails}
+              onChange={(e) => updateField('workDetails', e.target.value)}
+              className="form-textarea"
+              rows={12}
+              placeholder="Describe the work specifications, requirements, deliverables, scope, technical details, timeline, and any other project details here...
+
+Examples:
+• Website design and development
+• 5-page responsive website with custom design
+• Contact form integration with email notifications
+• Mobile-optimized layout
+• SEO-friendly structure
+• 2 rounds of revisions included
+• Delivery within 14 business days
+
+Technical specifications:
+• HTML5, CSS3, JavaScript
+• Responsive design (mobile, tablet, desktop)
+• Cross-browser compatibility (Chrome, Firefox, Safari, Edge)
+• Performance optimization
+• Clean, semantic code structure"
+            />
           </div>
         </div>
       )}

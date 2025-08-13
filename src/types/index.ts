@@ -16,6 +16,7 @@ export interface Invoice {
   fees: Fee[];
   taxes: Tax[];
   payments: Payment[];
+  workDetails: string;
   notes: string;
   terms: string;
   totals: InvoiceTotals;

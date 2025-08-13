@@ -76,6 +76,7 @@ const createEmptyInvoice = (templateId: string = 'simple-test'): Invoice => ({
   fees: [],
   taxes: [],
   payments: [],
+  workDetails: '',
   notes: '',
   terms: 'Payment due within 14 days.',
   totals: {

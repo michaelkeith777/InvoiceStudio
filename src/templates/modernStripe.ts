@@ -174,25 +174,18 @@ export const modernStripeTemplate: Template = {
     </section>
     {{/if}}
     
-    <!-- TESTING: Always show work details debug -->
+    <!-- ABSOLUTE TEST: This should ALWAYS be visible -->
     <section class="mb-8">
-      <div style="background: #FEF3C7; border-radius: 12px; padding: 1rem; border: 1px solid #F59E0B;">
-        <h3 style="font-weight: 600; margin-bottom: 8px; color: #92400E; font-size: 12px;">Work Details Debug</h3>
-        <div style="font-size: 11px; color: #92400E;">
-          Data: "{{workDetails}}" | Has Data: {{#if workDetails}}YES{{else}}NO{{/if}} | Length: {{workDetails.length}}
+      <div style="background: #FF0000; border-radius: 12px; padding: 2rem; border: 3px solid #000000; position: relative; z-index: 9999;">
+        <h1 style="font-weight: 900; margin-bottom: 16px; color: #FFFFFF; font-size: 24px;">🔥 MODERN STRIPE TEST 🔥</h1>
+        <div style="font-size: 16px; color: #FFFFFF; background: #000000; padding: 1rem;">
+          <strong>Invoice #:</strong> {{invoice.invoiceNumber}} <br>
+          <strong>Work Details:</strong> "{{workDetails}}" <br>
+          <strong>Triple Bracket:</strong> {{{workDetails}}} <br>
+          <strong>Condition:</strong> {{#if workDetails}}✅ HAS-DATA{{else}}❌ NO-DATA{{/if}}
         </div>
       </div>
     </section>
-    
-    <!-- TESTING: Force show work details without condition -->
-    {{#workDetails}}
-    <section class="mb-8">
-      <div style="background: #E0F2FE; border-radius: 12px; padding: 1rem; border: 1px solid #0284C7;">
-        <h3 style="font-weight: 600; margin-bottom: 8px; color: #0C4A6E; font-size: 12px;">FORCED Work Details ({{workDetails.length}} chars)</h3>
-        <div style="font-size: 14px; line-height: 1.6; color: #000000;">{{{workDetails}}}</div>
-      </div>
-    </section>
-    {{/workDetails}}
 
     <!-- Summary Section -->
     <section class="grid grid-cols-2 gap-8">

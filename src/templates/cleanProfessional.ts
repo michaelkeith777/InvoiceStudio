@@ -110,26 +110,14 @@ export const cleanProfessionalTemplate: Template = {
   </section>
   {{/if}}
   
-  <!-- TESTING: Always show work details section -->
-  <section style="margin-bottom: 2rem; background: #FEF3C7; padding: 1rem; border-radius: 6px; border: 1px solid #F59E0B;">
-    <h3 style="font-weight: 600; margin-bottom: 8px; color: #92400E;">Work Details Debug</h3>
-    <div style="font-size: 12px; color: #92400E;">
-      Raw Data: "{{workDetails}}" <br>
-      Condition Test: {{#if workDetails}}HAS-DATA{{else}}NO-DATA{{/if}} <br>
-      Length: {{workDetails.length}} <br>
-      Type: {{typeof workDetails}}
-    </div>
-  </section>
-  
-  <!-- TESTING: Try different approaches -->
-  <section style="margin-bottom: 2rem; background: #E0F2FE; padding: 1rem; border-radius: 6px; border: 1px solid #0284C7;">
-    <h3 style="font-weight: 600; margin-bottom: 8px; color: #0C4A6E;">ALWAYS VISIBLE - Testing workDetails</h3>
-    <div style="font-size: 12px; color: #0C4A6E;">
-      Content: "{{{workDetails}}}" <br>
-      As Variable: {{workDetails}} <br>
-      Escaped: {{&workDetails}} <br>
-      Invoice Number (test): {{invoice.invoiceNumber}} <br>
-      Business Name (test): {{business.businessName}}
+  <!-- ABSOLUTE TEST: This should ALWAYS be visible -->
+  <section style="margin-bottom: 2rem; background: #FF0000; padding: 2rem; border-radius: 6px; border: 3px solid #000000; position: relative; z-index: 9999;">
+    <h1 style="font-weight: 900; margin-bottom: 16px; color: #FFFFFF; font-size: 24px;">🔥 ABSOLUTE TEST SECTION 🔥</h1>
+    <div style="font-size: 16px; color: #FFFFFF; background: #000000; padding: 1rem;">
+      <strong>Invoice #:</strong> {{invoice.invoiceNumber}} <br>
+      <strong>Work Details Raw:</strong> "{{workDetails}}" <br>
+      <strong>Work Details Triple:</strong> {{{workDetails}}} <br>
+      <strong>Has Data Check:</strong> {{#if workDetails}}✅ YES-HAS-DATA{{else}}❌ NO-DATA{{/if}}
     </div>
   </section>
 

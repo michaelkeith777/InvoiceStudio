@@ -924,13 +924,17 @@ const InvoiceForm: React.FC = () => {
                   <option value="Other">Other</option>
                 </select>
                 <input
-                  type="number"
-                  value={payment.amount}
-                  onChange={(e) => updatePayment(payment.id, 'amount', parseFloat(e.target.value) || 0)}
-                  className="form-input text-sm w-24"
-                  min="0"
-                  step="0.01"
-                  placeholder="Amount"
+                  type="text"
+                  inputMode="decimal"
+                  value={payment.amount.toString()}
+                  onChange={(e) => {
+                    const value = e.target.value.replace(/[^0-9.]/g, '');
+                    if (value === '' || /^\d*\.?\d*$/.test(value)) {
+                      updatePayment(payment.id, 'amount', parseFloat(value) || 0);
+                    }
+                  }}
+                  className="form-input text-sm w-32"
+                  placeholder="0.00"
                 />
                 <button
                   onClick={() => removePayment(payment.id)}

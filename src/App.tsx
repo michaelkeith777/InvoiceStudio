@@ -48,7 +48,7 @@ const App: React.FC = () => {
       {/* Main Content - Three Pane Layout */}
       <div className="flex-1 flex overflow-hidden">
         {/* Left Panel - Input Form */}
-        <div className="w-96 bg-white border-r border-gray-200 overflow-y-auto">
+        <div className="w-1/3 min-w-[400px] max-w-[600px] bg-white border-r border-gray-200 overflow-y-auto shadow-lg">
           <InvoiceForm />
         </div>
         

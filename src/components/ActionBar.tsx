@@ -24,6 +24,7 @@ const ActionBar: React.FC = () => {
   const [showTemplateSelector, setShowTemplateSelector] = useState(false);
   const [showSaveTemplateDialog, setShowSaveTemplateDialog] = useState(false);
   const [templateName, setTemplateName] = useState('');
+  const [zoomLevel, setZoomLevel] = useState(100);
 
   const handleSave = async () => {
     const success = await saveInvoice();
@@ -70,6 +71,23 @@ const ActionBar: React.FC = () => {
       setShowSaveTemplateDialog(false);
       setTemplateName('');
     }
+  };
+
+  const handleZoomIn = () => {
+    const newZoom = Math.min(zoomLevel + 10, 200);
+    setZoomLevel(newZoom);
+    document.documentElement.style.fontSize = `${newZoom}%`;
+  };
+
+  const handleZoomOut = () => {
+    const newZoom = Math.max(zoomLevel - 10, 50);
+    setZoomLevel(newZoom);
+    document.documentElement.style.fontSize = `${newZoom}%`;
+  };
+
+  const resetZoom = () => {
+    setZoomLevel(100);
+    document.documentElement.style.fontSize = '100%';
   };
 
   const formatLastSaved = (timestamp: string | null) => {
@@ -147,6 +165,41 @@ const ActionBar: React.FC = () => {
           >
             {isExporting ? 'Exporting...' : 'Export PDF'}
           </button>
+
+          <div className="h-6 w-px bg-gray-300"></div>
+
+          {/* Zoom Controls */}
+          <div className="flex items-center space-x-1">
+            <button
+              onClick={handleZoomOut}
+              disabled={zoomLevel <= 50}
+              className="p-2 text-gray-600 hover:text-gray-800 hover:bg-gray-100 rounded"
+              title="Zoom Out"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 12H4" />
+              </svg>
+            </button>
+            
+            <button
+              onClick={resetZoom}
+              className="px-2 py-1 text-xs font-mono text-gray-600 hover:text-gray-800 hover:bg-gray-100 rounded min-w-[3rem]"
+              title="Reset Zoom"
+            >
+              {zoomLevel}%
+            </button>
+            
+            <button
+              onClick={handleZoomIn}
+              disabled={zoomLevel >= 200}
+              className="p-2 text-gray-600 hover:text-gray-800 hover:bg-gray-100 rounded"
+              title="Zoom In"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+              </svg>
+            </button>
+          </div>
         </div>
 
         {/* Center - Status */}

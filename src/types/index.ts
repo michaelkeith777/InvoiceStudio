@@ -19,6 +19,11 @@ export interface Invoice {
   workDetails: string;
   notes: string;
   terms: string;
+  paymentLinks: {
+    stripeUrl?: string;
+    paypalUrl?: string;
+    instructions?: string;
+  };
   totals: InvoiceTotals;
   createdAt: string;
   updatedAt: string;

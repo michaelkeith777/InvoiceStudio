@@ -126,6 +126,27 @@ export const cleanProfessionalTemplate: Template = {
       </div>
       {{/if}}
 
+      {{#if paymentLinks}}
+      <div style="margin-top: 1.5rem; background: #F0FDF4; border-radius: 8px; padding: 1rem; border-left: 4px solid #16A34A;">
+        <h3 style="font-weight: 600; margin-bottom: 8px; color: #15803D; font-size: 14px;">Payment Options</h3>
+        {{#if paymentLinks.stripeUrl}}
+        <div style="margin-bottom: 6px; font-size: 13px;">
+          <strong style="color: #15803D;">Credit Card:</strong> 
+          <a href="{{paymentLinks.stripeUrl}}" style="color: #2563EB; text-decoration: underline;">Pay with Stripe</a>
+        </div>
+        {{/if}}
+        {{#if paymentLinks.paypalUrl}}
+        <div style="margin-bottom: 6px; font-size: 13px;">
+          <strong style="color: #15803D;">PayPal:</strong> 
+          <a href="{{paymentLinks.paypalUrl}}" style="color: #2563EB; text-decoration: underline;">Pay with PayPal</a>
+        </div>
+        {{/if}}
+        {{#if paymentLinks.instructions}}
+        <div style="margin-top: 8px; font-size: 12px; line-height: 1.4; color: #166534;">{{paymentLinks.instructions}}</div>
+        {{/if}}
+      </div>
+      {{/if}}
+
       {{#if payments.length}}
       <div style="margin-top: 1.5rem;">
         <h3 style="font-weight: 600; margin-bottom: 8px; color: #374151;">Payments Received</h3>

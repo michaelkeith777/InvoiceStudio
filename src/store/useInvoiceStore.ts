@@ -79,6 +79,11 @@ const createEmptyInvoice = (templateId: string = 'simple-test'): Invoice => ({
   workDetails: '',
   notes: '',
   terms: 'Payment due within 14 days.',
+  paymentLinks: {
+    stripeUrl: '',
+    paypalUrl: '',
+    instructions: ''
+  },
   totals: {
     subtotal: 0,
     itemDiscounts: 0,

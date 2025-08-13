@@ -183,6 +183,7 @@ const InvoiceForm: React.FC = () => {
             { id: 'work', label: 'Work Details' },
             { id: 'taxes', label: 'Taxes & Fees' },
             { id: 'payments', label: 'Payments' },
+            { id: 'paymentlinks', label: 'Payment Links' },
             { id: 'notes', label: 'Notes' }
           ].map((section) => (
             <button
@@ -1018,6 +1019,60 @@ Technical specifications:
       )}
 
       {/* Notes Section */}
+      {activeSection === 'paymentlinks' && (
+        <div className="space-y-4">
+          <h3 className="text-lg font-semibold text-gray-800">Payment Options</h3>
+          
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Stripe Payment Link
+            </label>
+            <input
+              type="url"
+              value={currentInvoice.paymentLinks.stripeUrl || ''}
+              onChange={(e) => updateNestedField('paymentLinks', 'stripeUrl', e.target.value)}
+              className="form-input"
+              placeholder="https://buy.stripe.com/your-payment-link"
+            />
+            <p className="text-xs text-gray-500 mt-1">
+              Create a payment link in your Stripe dashboard and paste it here
+            </p>
+          </div>
+          
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              PayPal Payment Link
+            </label>
+            <input
+              type="url"
+              value={currentInvoice.paymentLinks.paypalUrl || ''}
+              onChange={(e) => updateNestedField('paymentLinks', 'paypalUrl', e.target.value)}
+              className="form-input"
+              placeholder="https://paypal.me/yourusername or custom PayPal invoice link"
+            />
+            <p className="text-xs text-gray-500 mt-1">
+              Use PayPal.me or create a custom invoice link in PayPal
+            </p>
+          </div>
+          
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Payment Instructions
+            </label>
+            <textarea
+              value={currentInvoice.paymentLinks.instructions || ''}
+              onChange={(e) => updateNestedField('paymentLinks', 'instructions', e.target.value)}
+              className="form-textarea"
+              rows={4}
+              placeholder="Additional payment instructions (e.g., bank transfer details, check payable to, wire transfer info, or any other payment methods you accept)"
+            />
+            <p className="text-xs text-gray-500 mt-1">
+              Include any other payment methods, bank details, or special instructions
+            </p>
+          </div>
+        </div>
+      )}
+
       {activeSection === 'notes' && (
         <div className="space-y-4">
           <h3 className="text-lg font-semibold text-gray-800">Notes & Terms</h3>

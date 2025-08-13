@@ -2,7 +2,7 @@
 
 ## Overview
 
-Invoice Studio Pro is a local, offline desktop application built with Electron for generating professional invoices with real-time preview. The application provides a complete invoicing solution with template-based customization, tax/fee management, and PDF export capabilities. It features a split-pane interface with form inputs on the left and live invoice preview on the right, updating instantly as users type.
+Invoice Studio Pro is a professional web-based invoice application built with React for generating invoices with real-time preview. The application provides a complete invoicing solution with template-based customization, tax/fee management, and browser-based PDF export. It features a three-pane interface with form inputs on the left and live invoice preview on the center, updating instantly as users type.
 
 ## User Preferences
 
@@ -17,17 +17,18 @@ Preferred communication style: Simple, everyday language.
 - **UI Layout**: Three-pane desktop layout with action bar, input form, and live preview
 - **Real-time Updates**: Direct state updates trigger immediate re-rendering of preview (<50ms target)
 
-### Desktop Application Framework
-- **Platform**: Electron for cross-platform desktop deployment (Windows + macOS)
-- **Architecture**: Main process handles file operations, renderer process runs React app
-- **Security**: Node integration enabled for file system access (suitable for local app)
+### Web Application Framework
+- **Platform**: Modern web browsers with responsive design
+- **Architecture**: Client-side React app with browser-based storage and APIs
+- **Security**: CSP-compliant with secure client-side operations
 - **Development**: Webpack-based build system with hot reload support
+- **Deployment**: Static site deployment with CDN support
 
 ### Data Storage & Persistence
-- **Storage Method**: Local JSON files in user-accessible directories
-- **Data Structure**: Separate files for invoices, templates, business profiles, and settings
-- **Backup Strategy**: User-controlled file locations for easy backup and portability
-- **No Database**: Avoids external dependencies, maintains offline-first approach
+- **Storage Method**: Browser localStorage and IndexedDB for client-side persistence
+- **Data Structure**: JSON-based storage for invoices, templates, business profiles, and settings
+- **Export/Import**: JSON file download/upload for data portability and backup
+- **Cloud Integration**: Optional integration with cloud storage services for synchronization
 
 ### Template System
 - **Engine**: Mustache.js for logic-less templating with safe HTML rendering
@@ -36,10 +37,11 @@ Preferred communication style: Simple, everyday language.
 - **Built-in Templates**: Clean Professional, Modern Stripe, and Compact Ledger templates
 
 ### PDF Generation
-- **Method**: HTML-to-PDF conversion using Electron's built-in Chromium print API
+- **Method**: Browser print API with optimized print styles for PDF generation
 - **Rendering**: Templates rendered as HTML with embedded styles for consistent output
 - **Fonts**: Google Fonts (Inter, Roboto Slab) loaded via CDN with local fallbacks
 - **Print Optimization**: CSS print media queries and page break controls
+- **Alternative**: Client-side PDF generation libraries (jsPDF, Puppeteer) for advanced features
 
 ### Calculation Engine
 - **Real-time Processing**: Automatic recalculation on any input change

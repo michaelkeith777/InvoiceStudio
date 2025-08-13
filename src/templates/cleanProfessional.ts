@@ -24,9 +24,9 @@ export const cleanProfessionalTemplate: Template = {
 <div class="invoice p-8">
   <header class="flex items-start justify-between mb-8">
     <div class="flex items-center gap-4">
-      {{#if business.logoPath}}
+      {{#business.logoPath}}
       <img src="{{business.logoPath}}" alt="{{business.name}} Logo" style="height:64px; max-width: 120px; object-fit: contain;" />
-      {{/if}}
+      {{/business.logoPath}}
       <div>
         <h1 style="font-family: {{brand.fontFamilyHeader}}; font-size: 24px; color: {{brand.primaryColor}}; margin: 0; font-weight: 700;">{{business.name}}</h1>
         <div style="font-family: {{brand.fontFamilyBody}}; font-size: 12px; color:#6B7280; margin-top: 4px;">
@@ -47,17 +47,17 @@ export const cleanProfessionalTemplate: Template = {
     <div>
       <h3 style="font-weight: 600; margin-bottom: 8px; color: #374151;">Bill To</h3>
       <div style="line-height: 1.5;">
-        {{#if client.name}}<div style="font-weight: 500;">{{client.name}}</div>{{/if}}
-        {{#if client.company}}<div>{{client.company}}</div>{{/if}}
-        {{#if client.billingAddress}}<div style="margin-top: 4px;">{{client.billingAddress}}</div>{{/if}}
-        {{#if client.email}}<div style="margin-top: 4px; color: #6B7280;">{{client.email}}{{#if client.phone}} • {{client.phone}}{{/if}}</div>{{/if}}
+        {{#client.name}}<div style="font-weight: 500;">{{client.name}}</div>{{/client.name}}
+        {{#client.company}}<div>{{client.company}}</div>{{/client.company}}
+        {{#client.billingAddress}}<div style="margin-top: 4px;">{{client.billingAddress}}</div>{{/client.billingAddress}}
+        {{#client.email}}<div style="margin-top: 4px; color: #6B7280;">{{client.email}}{{#client.phone}} • {{client.phone}}{{/client.phone}}</div>{{/client.email}}
       </div>
     </div>
     <div>
       <h3 style="font-weight: 600; margin-bottom: 8px; color: #374151;">Invoice Details</h3>
       <div style="line-height: 1.5;">
-        {{#if client.shippingAddress}}<div><strong>Ship To:</strong><br>{{client.shippingAddress}}</div>{{/if}}
-        {{#if invoice.poNumber}}<div style="margin-top: 4px;"><strong>PO:</strong> {{invoice.poNumber}}</div>{{/if}}
+        {{#client.shippingAddress}}<div><strong>Ship To:</strong><br>{{client.shippingAddress}}</div>{{/client.shippingAddress}}
+        {{#invoice.poNumber}}<div style="margin-top: 4px;"><strong>PO:</strong> {{invoice.poNumber}}</div>{{/invoice.poNumber}}
         <div style="margin-top: 4px;"><strong>Terms:</strong> {{invoice.paymentTermsDisplay}}</div>
         <div style="margin-top: 4px;"><strong>Currency:</strong> {{invoice.currency}}</div>
       </div>
@@ -71,9 +71,9 @@ export const cleanProfessionalTemplate: Template = {
         <th style="text-align: left; padding: 12px; font-weight: 600; border-bottom: 2px solid #E5E7EB;">Description</th>
         <th style="text-align: right; padding: 12px; font-weight: 600; border-bottom: 2px solid #E5E7EB;">Qty</th>
         <th style="text-align: right; padding: 12px; font-weight: 600; border-bottom: 2px solid #E5E7EB;">Rate</th>
-        {{#if items.0.discount}}
+        {{#items.0.discount}}
         <th style="text-align: right; padding: 12px; font-weight: 600; border-bottom: 2px solid #E5E7EB;">Discount</th>
-        {{/if}}
+        {{/items.0.discount}}
         <th style="text-align: right; padding: 12px; font-weight: 600; border-bottom: 2px solid #E5E7EB;">Amount</th>
       </tr>
     </thead>
@@ -82,7 +82,7 @@ export const cleanProfessionalTemplate: Template = {
       <tr style="border-bottom: 1px solid #E5E7EB;">
         <td style="padding: 12px; vertical-align: top;">
           <div style="font-weight: 500;">{{name}}</div>
-          {{#if sku}}<div style="font-size: 11px; color: #9CA3AF; margin-top: 2px;">SKU: {{sku}}</div>{{/if}}
+          {{#sku}}<div style="font-size: 11px; color: #9CA3AF; margin-top: 2px;">SKU: {{sku}}</div>{{/sku}}
         </td>
         <td style="padding: 12px; vertical-align: top;">
           <div style="font-size: 13px; color: #6B7280;">{{description}}</div>

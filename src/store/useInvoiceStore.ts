@@ -50,7 +50,7 @@ interface InvoiceStore {
   clearError: () => void;
 }
 
-const createEmptyInvoice = (templateId: string = 'clean-professional'): Invoice => ({
+const createEmptyInvoice = (templateId: string = 'simple-test'): Invoice => ({
   version: '1.0',
   id: uuidv4(),
   templateId,
@@ -119,19 +119,7 @@ export const useInvoiceStore = create<InvoiceStore>((set, get) => ({
     set({ isLoading: true, error: null });
     
     try {
-      // Check if running in Electron environment
-      const isElectron = typeof window !== 'undefined' && window.require;
-      
-      if (isElectron) {
-        try {
-          const { ipcRenderer } = window.require('electron');
-          await ipcRenderer.invoke('ensure-directories');
-        } catch (electronError) {
-          console.warn('Electron IPC failed, continuing in web mode:', electronError);
-        }
-      }
-
-      // Load data - use fallbacks in web mode
+      // Load data from browser storage with fallbacks
       try {
         await Promise.all([
           get().loadSettings(),
@@ -141,7 +129,7 @@ export const useInvoiceStore = create<InvoiceStore>((set, get) => ({
         ]);
       } catch (loadError) {
         console.warn('Failed to load saved data, using defaults:', loadError);
-        // Initialize with defaults in web mode
+        // Initialize with defaults
         set({
           templates: defaultTemplates,
           businessProfiles: [defaultBusinessProfile],

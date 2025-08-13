@@ -1,78 +1,69 @@
 import { FileOperationResult } from '../types';
 
-// Check if we're in Electron environment
-const isElectron = () => {
-  return typeof window !== 'undefined' && window.require;
-};
-
 /**
- * Save data to a file
+ * Save data to browser localStorage
  */
 export const saveFile = async (filePath: string, data: any): Promise<FileOperationResult> => {
-  if (!isElectron()) {
-    return { success: false, error: 'Not running in Electron environment' };
-  }
-
   try {
-    const { ipcRenderer } = window.require('electron');
-    const result = await ipcRenderer.invoke('save-file', { filePath, data });
-    return result;
+    const key = `invoice-studio-${filePath.replace(/[^a-zA-Z0-9]/g, '-')}`;
+    localStorage.setItem(key, JSON.stringify(data));
+    return { success: true };
   } catch (error) {
-    console.error('Error saving file:', error);
+    console.error('Error saving to localStorage:', error);
     return { success: false, error: error instanceof Error ? error.message : 'Unknown error' };
   }
 };
 
 /**
- * Load data from a file
+ * Load data from browser localStorage
  */
 export const loadFile = async (filePath: string): Promise<FileOperationResult> => {
-  if (!isElectron()) {
-    return { success: false, error: 'Not running in Electron environment' };
-  }
-
   try {
-    const { ipcRenderer } = window.require('electron');
-    const result = await ipcRenderer.invoke('load-file', filePath);
-    return result;
+    const key = `invoice-studio-${filePath.replace(/[^a-zA-Z0-9]/g, '-')}`;
+    const data = localStorage.getItem(key);
+    if (data === null) {
+      return { success: false, error: 'File not found' };
+    }
+    return { success: true, data: JSON.parse(data) };
   } catch (error) {
-    console.error('Error loading file:', error);
+    console.error('Error loading from localStorage:', error);
     return { success: false, error: error instanceof Error ? error.message : 'Unknown error' };
   }
 };
 
 /**
- * List files in a directory
+ * List files in a directory (browser localStorage simulation)
  */
 export const listFiles = async (directory: string): Promise<FileOperationResult> => {
-  if (!isElectron()) {
-    return { success: false, error: 'Not running in Electron environment' };
-  }
-
   try {
-    const { ipcRenderer } = window.require('electron');
-    const result = await ipcRenderer.invoke('list-files', directory);
-    return { ...result, files: result.files || [] };
+    const prefix = `invoice-studio-${directory.replace(/[^a-zA-Z0-9]/g, '-')}`;
+    const files: string[] = [];
+    
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i);
+      if (key && key.startsWith(prefix)) {
+        const fileName = key.replace(prefix + '-', '').replace(/-/g, '/');
+        files.push(fileName);
+      }
+    }
+    
+    return { success: true, files };
   } catch (error) {
-    console.error('Error listing files:', error);
+    console.error('Error listing files from localStorage:', error);
     return { success: false, error: error instanceof Error ? error.message : 'Unknown error' };
   }
 };
 
 /**
- * Delete a file
+ * Delete a file from browser localStorage
  */
 export const deleteFile = async (filePath: string): Promise<FileOperationResult> => {
-  if (!isElectron()) {
-    return { success: false, error: 'Not running in Electron environment' };
-  }
-
   try {
-    const { ipcRenderer } = window.require('electron');
-    const result = await ipcRenderer.invoke('delete-file', filePath);
-    return result;
+    const key = `invoice-studio-${filePath.replace(/[^a-zA-Z0-9]/g, '-')}`;
+    localStorage.removeItem(key);
+    return { success: true };
   } catch (error) {
-    console.error('Error deleting file:', error);
+    console.error('Error deleting from localStorage:', error);
     return { success: false, error: error instanceof Error ? error.message : 'Unknown error' };
   }
 };
